@@ -1,0 +1,7 @@
+<svg preserveAspectRatio="none" overflow="visible" style="display: block;" width="42" height="42" viewBox="0 0 42 42" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g id="Timeline Marker">
+<path d="M21 0.875C32.1147 0.875 41.125 9.88527 41.125 21C41.125 32.1147 32.1147 41.125 21 41.125C9.88527 41.125 0.875 32.1147 0.875 21C0.875 9.88527 9.88527 0.875 21 0.875Z" fill="white"/>
+<path d="M21 0.875C32.1147 0.875 41.125 9.88527 41.125 21C41.125 32.1147 32.1147 41.125 21 41.125C9.88527 41.125 0.875 32.1147 0.875 21C0.875 9.88527 9.88527 0.875 21 0.875Z" stroke="#1D2939" stroke-width="1.75"/>
+<circle id="Dot" cx="21" cy="21" r="15" fill="#1D2939"/>
+</g>
+</svg>

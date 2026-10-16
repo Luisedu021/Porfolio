@@ -1,0 +1,30 @@
+import { experiences } from '../../data/content'
+import { useI18n } from '../../i18n/context'
+import { Container } from '../ui/Container'
+import { Reveal } from '../ui/Reveal'
+import { TimelineRow } from '../ui/TimelineRow'
+
+export function Experience() {
+  const { t } = useI18n()
+
+  return (
+    <section id="experiencia" className="bg-page pt-20 pb-16 lg:pt-32 lg:pb-24">
+      <Container className="flex flex-col items-center gap-16 lg:gap-24">
+        <Reveal>
+          <h2 className="text-center type-h1 text-heading">{t.experience.title}</h2>
+        </Reveal>
+        <ol className="flex w-full max-w-[1056px] flex-col gap-16">
+          {experiences.map((experience, index) => (
+            <TimelineRow
+              key={experience.key}
+              company={experience.company}
+              tone={experience.tone}
+              {...t.experience.items[experience.key]}
+              isLast={index === experiences.length - 1}
+            />
+          ))}
+        </ol>
+      </Container>
+    </section>
+  )
+}

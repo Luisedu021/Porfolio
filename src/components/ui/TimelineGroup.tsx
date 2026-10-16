@@ -4,10 +4,13 @@ import markerDark from '../../assets/timeline-marker-dark.svg'
 import type { ExperienceText } from '../../i18n/types'
 import { fadeLeft, fadeRight, inView, pop, staggered } from '../../lib/motion'
 
-type TimelineRowProps = ExperienceText & {
+type TimelineGroupProps = {
   company: string
+  period: string
   tone: 'brand' | 'dark'
-  /** O último item não desenha a linha até o próximo marcador. */
+  /** Cargos nesta empresa, na ordem em que aparecem */
+  roles: readonly ExperienceText[]
+  /** A última empresa não desenha a linha até o próximo marcador. */
   isLast: boolean
 }
 
@@ -18,16 +21,16 @@ const drawDown: Variants = {
 }
 
 /**
- * Figma: Timeline Row. No desktop: empresa | marcador | cargo.
+ * Uma empresa na linha do tempo. No desktop: empresa e período | marcador | cargos empilhados.
  * No mobile o marcador vai para a esquerda e o texto empilha.
  */
-export function TimelineRow({ company, period, role, description, tone, isLast }: TimelineRowProps) {
+export function TimelineGroup({ company, period, tone, roles, isLast }: TimelineGroupProps) {
   return (
     <motion.li
       {...inView}
-      viewport={{ once: true, amount: 0.5 }}
+      viewport={{ once: true, amount: 0.3 }}
       variants={staggered(0.12)}
-      className="grid grid-cols-[42px_1fr] gap-x-5 gap-y-4 md:grid-cols-[1fr_42px_1fr] md:gap-x-12"
+      className="grid grid-cols-[42px_1fr] gap-x-5 gap-y-6 md:grid-cols-[1fr_42px_1fr] md:gap-x-12"
     >
       <motion.div variants={fadeLeft} className="col-start-2 flex flex-col gap-3 pt-1 md:col-start-1 md:row-start-1">
         <h3 className="type-h3 text-heading">{company}</h3>
@@ -42,7 +45,7 @@ export function TimelineRow({ company, period, role, description, tone, isLast }
           className="relative z-10 size-[42px]"
         />
         {!isLast && (
-          // Trilho tracejado (traço 4px, espaço 6px) até o próximo marcador, que está 64px abaixo (gap-16 da lista).
+          // Trilho tracejado (traço 4px, espaço 6px) até o marcador da próxima empresa, 64px abaixo (gap-16 da lista).
           <motion.span
             aria-hidden="true"
             variants={drawDown}
@@ -51,13 +54,17 @@ export function TimelineRow({ company, period, role, description, tone, isLast }
         )}
       </div>
 
-      <motion.div
-        variants={fadeRight}
-        className="col-start-2 flex flex-col gap-3 pt-1 md:col-start-3 md:row-start-1 md:items-end md:text-right"
+      <motion.ul
+        variants={staggered(0.12)}
+        className="col-start-2 flex flex-col gap-8 pt-1 md:col-start-3 md:row-start-1 md:items-end md:text-right"
       >
-        <p className="type-h3 text-heading">{role}</p>
-        {description && <p className="type-body-md text-faint md:max-w-[400px]">{description}</p>}
-      </motion.div>
+        {roles.map((item) => (
+          <motion.li key={item.role} variants={fadeRight} className="flex flex-col gap-3 md:items-end">
+            <p className="type-h3 text-heading">{item.role}</p>
+            <p className="type-body-md text-faint md:max-w-[400px]">{item.description}</p>
+          </motion.li>
+        ))}
+      </motion.ul>
     </motion.li>
   )
 }

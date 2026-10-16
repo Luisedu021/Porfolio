@@ -2,7 +2,7 @@ import { experiences } from '../../data/content'
 import { useI18n } from '../../i18n/context'
 import { Container } from '../ui/Container'
 import { Reveal } from '../ui/Reveal'
-import { TimelineRow } from '../ui/TimelineRow'
+import { TimelineGroup } from '../ui/TimelineGroup'
 
 export function Experience() {
   const { t } = useI18n()
@@ -14,12 +14,13 @@ export function Experience() {
           <h2 className="text-center type-h1 text-heading">{t.experience.title}</h2>
         </Reveal>
         <ol className="flex w-full max-w-[1056px] flex-col gap-16">
-          {experiences.map((experience, index) => (
-            <TimelineRow
-              key={experience.key}
-              company={experience.company}
-              tone={experience.tone}
-              {...t.experience.items[experience.key]}
+          {experiences.map((group, index) => (
+            <TimelineGroup
+              key={group.key}
+              company={group.company}
+              period={t.experience.periods[group.key]}
+              tone={group.tone}
+              roles={group.roles.map((role) => t.experience.items[role])}
               isLast={index === experiences.length - 1}
             />
           ))}

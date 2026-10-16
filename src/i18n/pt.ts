@@ -1,8 +1,5 @@
 import type { Dictionary } from './types'
 
-const lorem =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus nunc, posuere in justo vulputate, bibendum sodales.'
-const serviceDescription = 'Focado em psicologia do design e layouts que convertem.'
 const serviceTags = ['UI/UX', 'Figma', 'Prototipagem']
 
 export const pt: Dictionary = {
@@ -44,9 +41,9 @@ export const pt: Dictionary = {
     items: [
       {
         number: '01',
-        title: 'IA & automações',
+        title: 'IA & automatizações',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focado em automatizar processos, melhorar produtividade e gerar valor e mais conversão!',
         details: [
           'Agentes e chatbots com IA para atendimento, vendas e suporte',
           'Automação de tarefas repetitivas e fluxos entre ferramentas',
@@ -64,7 +61,7 @@ export const pt: Dictionary = {
         number: '02',
         title: 'Product Design',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focado em pensamento de produtos que convertem e geram interesse no público.',
         details: [
           'Descoberta do problema junto aos usuários',
           'Arquitetura de informação e fluxos de navegação',
@@ -77,7 +74,7 @@ export const pt: Dictionary = {
         number: '03',
         title: 'UI/UX Design',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focado em psicologia do design e layouts que convertem.',
         details: [
           'Wireframes e protótipos navegáveis no Figma',
           'Interfaces consistentes a partir de um design system',
@@ -88,9 +85,9 @@ export const pt: Dictionary = {
       },
       {
         number: '04',
-        title: 'Dev. Web',
+        title: 'Desenvolvimento',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focado em desenvolvimento de aplicações, E-commerces, landing-pages e aplicativos.',
         details: [
           'Sites e landing pages rápidos e responsivos',
           'Aplicações web fullstack: front-end, APIs e banco de dados',
@@ -103,14 +100,35 @@ export const pt: Dictionary = {
   },
   about: {
     title: 'Sobre',
-    body: 'Nisl arcu, scelerisque neque ut. Tincidunt amet, tempor duis tortor neque auctor dis ipsum. Pretium cras amet odio amet eleifend id sed cras sed. Aliquet risus posuere aliquet imperdiet sit.',
+    body: 'Formando em Ciência da Computação pela UFMS, sou um estudante e profissional que sempre busco me desafiar e realizar coisas novas, apaixonado por UI/UX Design e Design de Produto, tento sempre procurar e realizar o melhor trabalho possível.',
   },
   experience: {
     title: 'Minha experiência profissional',
+    periods: {
+      megaJr: 'Agosto 2025 – até o momento',
+      ouronova: 'Agosto 2025 – até o momento',
+    },
     items: {
-      megaDesigner: { period: 'Agosto 2025 – até o momento', role: 'UI/UX Designer', description: lorem },
-      megaDirector: { period: 'Agosto 2025 – até o momento', role: 'Diretor comercial', description: lorem },
-      ouronova: { period: 'Maio 2026 – até o momento', role: 'UI/UX Designer | Dev Fullstack' },
+      megaDesigner: {
+        role: 'UI/UX Designer',
+        description:
+          'Atuei como UI/UX Designer em diversos projetos tais como: COP-15, landing page de Acunpunpulturista e empresa Jr. (Multipla',
+      },
+      megaDirector: {
+        role: 'Diretor comercial',
+        description:
+          'Lidei com a gestão de processos comerciais, conversas com leads, realização de contratos e reuniões para conversão de leads.',
+      },
+      megaDev: {
+        role: 'Dev. Web',
+        description:
+          'Atuei como desenvolvedor Web em landing pages de diferentes nichos, tais como empresarais e da área da saúde.',
+      },
+      ouronova: {
+        role: 'UI/UX Designer e Dev.',
+        description:
+          'Atuei na elaboração E Redesign de fluxos do software wellnova para empresas do setor petrolífero, tais como: Petrobrás, Shell e empresas europeias.',
+      },
     },
   },
   projects: {

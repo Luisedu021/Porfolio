@@ -1,8 +1,5 @@
 import type { Dictionary } from './types'
 
-const lorem =
-  'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis lacus nunc, posuere in justo vulputate, bibendum sodales.'
-const serviceDescription = 'Focused on design psychology and layouts that convert.'
 const serviceTags = ['UI/UX', 'Figma', 'Prototyping']
 
 export const en: Dictionary = {
@@ -45,7 +42,7 @@ export const en: Dictionary = {
         number: '01',
         title: 'AI & automation',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focused on automating processes, improving productivity and generating value and more conversion!',
         details: [
           'AI agents and chatbots for support, sales and customer service',
           'Automation of repetitive tasks and workflows across tools',
@@ -63,7 +60,7 @@ export const en: Dictionary = {
         number: '02',
         title: 'Product Design',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focused on product thinking that converts and sparks interest in the audience.',
         details: [
           'Problem discovery with real users',
           'Information architecture and user flows',
@@ -76,7 +73,7 @@ export const en: Dictionary = {
         number: '03',
         title: 'UI/UX Design',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focused on design psychology and layouts that convert.',
         details: [
           'Wireframes and clickable prototypes in Figma',
           'Consistent interfaces built on a design system',
@@ -87,9 +84,9 @@ export const en: Dictionary = {
       },
       {
         number: '04',
-        title: 'Web Dev.',
+        title: 'Development',
         tags: serviceTags,
-        description: serviceDescription,
+        description: 'Focused on developing applications, e-commerce, landing pages and apps.',
         details: [
           'Fast, responsive websites and landing pages',
           'Fullstack web apps: front-end, APIs and databases',
@@ -102,14 +99,35 @@ export const en: Dictionary = {
   },
   about: {
     title: 'About',
-    body: 'Nisl arcu, scelerisque neque ut. Tincidunt amet, tempor duis tortor neque auctor dis ipsum. Pretium cras amet odio amet eleifend id sed cras sed. Aliquet risus posuere aliquet imperdiet sit.',
+    body: "Graduating in Computer Science at UFMS, I'm a student and professional who always seeks to challenge myself and do new things, passionate about UI/UX Design and Product Design, I always try to seek out and deliver the best work possible.",
   },
   experience: {
     title: 'My professional experience',
+    periods: {
+      megaJr: 'August 2025 – present',
+      ouronova: 'August 2025 – present',
+    },
     items: {
-      megaDesigner: { period: 'August 2025 – present', role: 'UI/UX Designer', description: lorem },
-      megaDirector: { period: 'August 2025 – present', role: 'Commercial Director', description: lorem },
-      ouronova: { period: 'May 2026 – present', role: 'UI/UX Designer | Fullstack Dev' },
+      megaDesigner: {
+        role: 'UI/UX Designer',
+        description:
+          'Worked as a UI/UX Designer on several projects, such as: COP-15, a landing page for an acupuncturist and a junior enterprise (Multipla',
+      },
+      megaDirector: {
+        role: 'Commercial Director',
+        description:
+          'Handled the management of sales processes, conversations with leads, closing contracts and meetings to convert leads.',
+      },
+      megaDev: {
+        role: 'Web Dev.',
+        description:
+          'Worked as a web developer on landing pages for different niches, such as corporate and healthcare.',
+      },
+      ouronova: {
+        role: 'UI/UX Designer & Dev.',
+        description:
+          'Worked on the design and redesign of flows for the Wellnova software for companies in the oil sector, such as Petrobras, Shell and European companies.',
+      },
     },
   },
   projects: {

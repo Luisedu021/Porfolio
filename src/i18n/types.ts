@@ -1,4 +1,4 @@
-import type { CompanyKey, ExperienceKey, ProjectKey, SectionId } from '../data/content'
+import type { CompanyKey, ExperienceKey, ProjectCategory, ProjectKey, SectionId } from '../data/content'
 
 export type Language = 'pt' | 'en'
 
@@ -19,7 +19,7 @@ export type Service = {
 
 export type ExperienceText = { role: string; description: string }
 
-export type ProjectText = { category: string; summary: string; challenge: string; result: string }
+export type ProjectText = { summary: string; challenge: string; result: string }
 
 /** Todos os textos do site. pt.ts e en.ts precisam ter exatamente esta forma. */
 export type Dictionary = {
@@ -67,6 +67,11 @@ export type Dictionary = {
     viewCase: string
     close: string
     open: (title: string) => string
+    /** Nome de cada categoria (uma coluna por categoria) */
+    categories: Record<ProjectCategory, string>
+    count: (total: number) => string
+    previous: string
+    next: string
     /** Texto alternativo das telas nos mockups */
     screen: (title: string) => string
     items: Record<ProjectKey, ProjectText>

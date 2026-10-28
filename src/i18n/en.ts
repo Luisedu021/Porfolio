@@ -133,30 +133,46 @@ export const en: Dictionary = {
   projects: {
     titleStart: 'My ',
     titleHighlight: 'projects',
-    body: 'A few recent projects. Click one to see the screens, the challenge and the result.',
+    body: 'Projects by category. Open one and use the arrows to browse each project.',
     challengeLabel: 'Challenge',
     resultLabel: 'Result',
-    viewCase: 'View case study',
+    viewCase: 'View project',
     close: 'Close project',
-    open: (title) => `Open the ${title} project`,
+    open: (title) => `Open ${title}`,
+    categories: { landing: 'Landing page', uiux: 'UI/UX', software: 'Software' },
+    count: (total) => (total === 1 ? '1 project' : `${total} projects`),
+    previous: 'Previous project',
+    next: 'Next project',
     screen: (title) => `Screen from the ${title} project`,
-    // TODO: describe each project. The texts below are only a guide.
+    // TODO: fill in the challenge and the result of each project (the texts below are only a guide).
     items: {
-      cop15: {
-        category: 'UI/UX Design',
-        summary: 'One or two sentences about the project: what it is and who it was built for.',
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-      acupuncture: {
-        category: 'Landing page',
-        summary: 'One or two sentences about the project: what it is and who it was built for.',
+      garanhani: {
+        summary:
+          "Landing page for Dr. Rafael Garanhani's practice: medical acupuncture, neuromodulation, homeopathy and general care.",
         challenge: 'The problem the client or the users had.',
         result: 'What changed after delivery (ideally with a number).',
       },
       wellnova: {
-        category: 'Software',
-        summary: 'One or two sentences about the project: what it is and who it was built for.',
+        summary:
+          "Wellnova's public website, an AI platform for oil and gas well integrity. I worked on refactoring the code.",
+        challenge: 'The problem the client or the users had.',
+        result: 'What changed after delivery (ideally with a number).',
+      },
+      ironCapi: {
+        summary:
+          'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training calendar, plus the team dashboard.',
+        challenge: 'The problem the client or the users had.',
+        result: 'What changed after delivery (ideally with a number).',
+      },
+      wellnovaApp: {
+        summary:
+          "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
+        challenge: 'The problem the client or the users had.',
+        result: 'What changed after delivery (ideally with a number).',
+      },
+      megaAtas: {
+        summary:
+          "Mega Jr.'s meeting minutes generator: it takes the details, the date and the key points and writes the summary. My first project with JavaScript and APIs.",
         challenge: 'The problem the client or the users had.',
         result: 'What changed after delivery (ideally with a number).',
       },

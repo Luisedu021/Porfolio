@@ -134,30 +134,46 @@ export const pt: Dictionary = {
   projects: {
     titleStart: 'Meus ',
     titleHighlight: 'projetos',
-    body: 'Alguns projetos recentes. Clique em um deles para ver as telas, o desafio e o resultado.',
+    body: 'Projetos por categoria. Abra uma delas e use as setas para ver cada projeto.',
     challengeLabel: 'Desafio',
     resultLabel: 'Resultado',
-    viewCase: 'Ver estudo de caso',
+    viewCase: 'Ver projeto',
     close: 'Fechar projeto',
-    open: (title) => `Abrir o projeto ${title}`,
+    open: (title) => `Abrir ${title}`,
+    categories: { landing: 'Landing page', uiux: 'UI/UX', software: 'Software' },
+    count: (total) => (total === 1 ? '1 projeto' : `${total} projetos`),
+    previous: 'Projeto anterior',
+    next: 'Próximo projeto',
     screen: (title) => `Tela do projeto ${title}`,
-    // TODO: descreva cada projeto. Os textos abaixo são só um guia do que escrever.
+    // TODO: complete o desafio e o resultado de cada projeto (os textos abaixo são só um guia).
     items: {
-      cop15: {
-        category: 'UI/UX Design',
-        summary: 'Resumo do projeto em uma ou duas frases: o que é e para quem foi feito.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-      acupuncture: {
-        category: 'Landing page',
-        summary: 'Resumo do projeto em uma ou duas frases: o que é e para quem foi feito.',
+      garanhani: {
+        summary:
+          'Landing page do consultório do Dr. Rafael Garanhani: acupuntura médica, neuromodulação, homeopatia e clínica geral.',
         challenge: 'Qual problema o cliente ou o usuário tinha.',
         result: 'O que mudou depois da entrega (de preferência com um número).',
       },
       wellnova: {
-        category: 'Software',
-        summary: 'Resumo do projeto em uma ou duas frases: o que é e para quem foi feito.',
+        summary:
+          'Hotsite público da Wellnova, plataforma de IA para integridade de poços de óleo e gás. Atuei na refatoração do código.',
+        challenge: 'Qual problema o cliente ou o usuário tinha.',
+        result: 'O que mudou depois da entrega (de preferência com um número).',
+      },
+      ironCapi: {
+        summary:
+          'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário de treinos, além do painel do time.',
+        challenge: 'Qual problema o cliente ou o usuário tinha.',
+        result: 'O que mudou depois da entrega (de preferência com um número).',
+      },
+      wellnovaApp: {
+        summary:
+          'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
+        challenge: 'Qual problema o cliente ou o usuário tinha.',
+        result: 'O que mudou depois da entrega (de preferência com um número).',
+      },
+      megaAtas: {
+        summary:
+          'Gerador de atas de reunião da Mega Jr.: recebe os detalhes, a data e os pontos importantes e gera o resumo. Meu primeiro projeto com JavaScript e APIs.',
         challenge: 'Qual problema o cliente ou o usuário tinha.',
         result: 'O que mudou depois da entrega (de preferência com um número).',
       },

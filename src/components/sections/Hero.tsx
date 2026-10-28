@@ -176,17 +176,11 @@ export function Hero() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.05, duration: 0.8, ease: EASE_OUT }}
-            className="glass flex items-center gap-2.5 rounded-full py-1.5 pr-5 pl-1.5 text-[13px] leading-5 sm:pr-4"
+            className="glass flex items-center rounded-full px-5 pt-2 pb-1.5 text-[13px] leading-5 sm:px-4"
           >
-            <span
-              aria-hidden="true"
-              className="flex size-8 shrink-0 items-center justify-center rounded-full bg-white/70 sm:size-7 dark:bg-white/10"
-            >
-              👋
-            </span>
             {/* Celular: nome em cima e cargo embaixo. A partir de sm: tudo numa linha, separado por um ponto. */}
             <span className="flex flex-col sm:flex-row sm:items-center sm:gap-2.5">
-              <span className="font-semibold text-ink">{t.hero.badgeName}</span>
+              <span className="font-semibold text-ink uppercase">{t.hero.badgeName}</span>
               <span aria-hidden="true" className="hidden size-1 rounded-full bg-faint sm:block" />
               <span className="font-medium text-body">{t.hero.badgeRole}</span>
             </span>

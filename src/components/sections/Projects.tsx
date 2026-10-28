@@ -1,18 +1,23 @@
 import { AnimatePresence, motion } from 'motion/react'
 import { useEffect, useId, useState } from 'react'
-import { projects } from '../../data/content'
+import { projectCategories, projects } from '../../data/content'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
 import { useI18n } from '../../i18n/context'
 import { cn } from '../../lib/cn'
 import { EASE_OUT, fadeUp, inView, staggered } from '../../lib/motion'
 import { Container } from '../ui/Container'
-import { ProjectShowcase } from '../ui/ProjectShowcase'
+import { ProjectCarousel } from '../ui/ProjectCarousel'
 import { Reveal } from '../ui/Reveal'
 
-/** Largura (px) das colunas fechadas enquanto outro projeto está aberto. */
+/** Largura (px) das colunas fechadas enquanto outra categoria está aberta. */
 const COLLAPSED_WIDTH = 88
 
 const numberOf = (index: number) => String(index + 1).padStart(2, '0')
+
+/** Uma coluna (desktop) ou linha (celular) por categoria, com os projetos dela. */
+const groups = projectCategories
+  .map((category) => ({ category, items: projects.filter((project) => project.category === category) }))
+  .filter((group) => group.items.length > 0)
 
 function ArrowUpRight({ className }: { className?: string }) {
   return (
@@ -29,14 +34,14 @@ type ListProps = {
 }
 
 /**
- * Desktop: colunas lado a lado com o número grande. No hover a capa aparece;
- * no clique a coluna cresce e mostra o projeto, e as outras viram faixas estreitas.
+ * Desktop: uma coluna por categoria com o número grande. No hover, o site do primeiro projeto
+ * rola dentro da coluna; no clique a coluna cresce e mostra os projetos, e as outras viram faixas.
  */
 function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
   const { t } = useI18n()
   const baseId = useId()
   // Largura final da coluna aberta: o conteúdo já nasce nesse tamanho e não se reorganiza enquanto a coluna cresce.
-  const panelWidth = `calc(100cqw - ${(projects.length - 1) * COLLAPSED_WIDTH}px)`
+  const panelWidth = `calc(100cqw - ${(groups.length - 1) * COLLAPSED_WIDTH}px)`
 
   return (
     <motion.ul
@@ -44,15 +49,15 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
       variants={staggered(0.12)}
       className="@container flex h-[620px] w-full overflow-hidden rounded-lg bg-surface shadow-[0_12px_32px_rgba(5,26,64,0.08)] dark:ring-1 dark:ring-white/5"
     >
-      {projects.map((project, index) => {
+      {groups.map(({ category, items }, index) => {
         const isOpen = openIndex === index
         const isCollapsed = openIndex !== null && !isOpen
-        const panelId = `${baseId}-${project.key}`
-        const text = t.projects.items[project.key]
+        const panelId = `${baseId}-${category}`
+        const label = t.projects.categories[category]
 
         return (
           <motion.li
-            key={project.key}
+            key={category}
             variants={fadeUp}
             className="relative min-w-0 overflow-hidden border-line transition-[flex-grow,flex-basis] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] not-first:border-l"
             style={{ flexGrow: isCollapsed ? 0 : 1, flexBasis: isCollapsed ? COLLAPSED_WIDTH : 0 }}
@@ -62,20 +67,31 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
               onClick={() => onToggle(index)}
               aria-expanded={isOpen}
               aria-controls={panelId}
-              aria-label={t.projects.open(project.title)}
+              aria-label={t.projects.open(label)}
               inert={isOpen}
               className="group absolute inset-0 flex flex-col text-left text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
             >
-              {/* Capa + véu escuro que aparecem no hover */}
-              <img
-                src={project.cover}
-                alt=""
-                loading="lazy"
-                className="absolute inset-0 size-full scale-105 object-cover opacity-0 transition duration-700 ease-out group-hover:scale-100 group-hover:opacity-100 group-focus-visible:opacity-100"
-              />
-              <span className="absolute inset-0 bg-inverse/60 opacity-0 transition-opacity duration-700 group-hover:opacity-100 group-focus-visible:opacity-100" />
+              {/* Capa: a página do primeiro projeto, que rola devagar enquanto o mouse está em cima */}
+              <span
+                aria-hidden="true"
+                className="absolute inset-0 bg-inverse opacity-0 transition-opacity duration-700 group-hover:opacity-100 group-focus-visible:opacity-100"
+              >
+                {!isCollapsed && (
+                  <img
+                    src={items[0].preview}
+                    alt=""
+                    loading="lazy"
+                    className={cn(
+                      'size-full object-cover transition-[object-position] duration-[1.2s] ease-out group-hover:duration-[14s] group-hover:ease-linear',
+                      items[0].previewWide ? 'object-left group-hover:object-right' : 'object-top group-hover:object-bottom',
+                    )}
+                  />
+                )}
+                {/* Escurece em cima e embaixo para os textos continuarem legíveis */}
+                <span className="absolute inset-0 bg-[linear-gradient(to_bottom,rgb(5_26_63/0.85),transparent_22%,transparent_70%,rgb(5_26_63/0.92))]" />
+              </span>
 
-              {/* Coluna larga: categoria, número no centro, título e seta embaixo */}
+              {/* Coluna larga: quantidade, número no centro, categoria e seta embaixo */}
               <span
                 className={cn(
                   'relative flex flex-1 flex-col p-8 transition-opacity duration-300',
@@ -83,19 +99,19 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
                 )}
               >
                 <span className="relative type-caption tracking-widest text-body uppercase transition-colors duration-500 group-hover:text-white/70">
-                  {text.category}
+                  {t.projects.count(items.length)}
                 </span>
                 {/* Centralizado na coluna inteira, para não subir quando o título quebra em duas linhas */}
-                <span className="absolute inset-0 flex items-center justify-center font-display text-[clamp(96px,10vw,160px)] leading-none font-light tracking-[-0.04em] transition-colors duration-500 group-hover:text-white">
+                <span className="absolute inset-0 flex items-center justify-center font-display text-[clamp(96px,10vw,160px)] leading-none font-light tracking-[-0.04em] transition duration-500 group-hover:opacity-0 group-focus-visible:opacity-0">
                   {numberOf(index)}
                 </span>
                 <span className="relative mt-auto flex items-end justify-between gap-4">
-                  <span className="type-h4 transition-colors duration-500 group-hover:text-white">{project.title}</span>
+                  <span className="type-h4 transition-colors duration-500 group-hover:text-white">{label}</span>
                   <ArrowUpRight className="mb-1.5 size-4 shrink-0 transition duration-500 group-hover:rotate-45 group-hover:text-white" />
                 </span>
               </span>
 
-              {/* Faixa estreita (outro projeto aberto): número em cima e título na vertical */}
+              {/* Faixa estreita (outra categoria aberta): número em cima e categoria na vertical */}
               <span
                 className={cn(
                   'absolute inset-0 flex flex-col items-center justify-between py-8 transition-opacity duration-300',
@@ -106,7 +122,7 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
                   {numberOf(index)}
                 </span>
                 <span className="relative rotate-180 type-nav whitespace-nowrap transition-colors [writing-mode:vertical-rl] group-hover:text-white">
-                  {project.title}
+                  {label}
                 </span>
               </span>
             </button>
@@ -117,20 +133,14 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
                   key="panel"
                   id={panelId}
                   role="region"
-                  aria-label={project.title}
+                  aria-label={label}
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1, transition: { duration: 0.5, delay: 0.1 } }}
                   exit={{ opacity: 0, transition: { duration: 0.25 } }}
                   className="absolute inset-y-0 left-0 z-10 overflow-hidden bg-inverse"
                   style={{ width: panelWidth }}
                 >
-                  <ProjectShowcase
-                    project={project}
-                    number={numberOf(index)}
-                    layout="side"
-                    delay={0.35}
-                    onClose={onClose}
-                  />
+                  <ProjectCarousel projects={items} number={numberOf(index)} layout="side" delay={0.35} onClose={onClose} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -141,7 +151,7 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
   )
 }
 
-/** Celular e tablet: lista em acordeão; a linha tocada abre com o projeto e os mockups. */
+/** Celular e tablet: acordeão por categoria; a linha tocada abre com os projetos dela. */
 function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
   const { t } = useI18n()
   const baseId = useId()
@@ -152,13 +162,12 @@ function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
       variants={staggered(0.1)}
       className="flex w-full flex-col overflow-hidden rounded-lg bg-surface shadow-[0_12px_32px_rgba(5,26,64,0.08)] dark:ring-1 dark:ring-white/5"
     >
-      {projects.map((project, index) => {
+      {groups.map(({ category, items }, index) => {
         const isOpen = openIndex === index
-        const panelId = `${baseId}-${project.key}`
-        const text = t.projects.items[project.key]
+        const panelId = `${baseId}-${category}`
 
         return (
-          <motion.li key={project.key} variants={fadeUp} className="border-line not-first:border-t">
+          <motion.li key={category} variants={fadeUp} className="border-line not-first:border-t">
             <button
               type="button"
               onClick={() => onToggle(index)}
@@ -172,9 +181,9 @@ function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
               <span className="font-display text-5xl leading-none font-light tracking-[-0.04em]">{numberOf(index)}</span>
               <span className="flex min-w-0 flex-1 flex-col gap-1">
                 <span className={cn('type-caption tracking-widest uppercase', isOpen ? 'text-white/60' : 'text-body')}>
-                  {text.category}
+                  {t.projects.count(items.length)}
                 </span>
-                <span className="type-h4">{project.title}</span>
+                <span className="type-h4">{t.projects.categories[category]}</span>
               </span>
               <ArrowUpRight className={cn('size-4 shrink-0 transition-transform duration-300', isOpen && 'rotate-90')} />
             </button>
@@ -190,7 +199,7 @@ function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
                   transition={{ duration: 0.5, ease: EASE_OUT }}
                   className="overflow-hidden bg-inverse"
                 >
-                  <ProjectShowcase project={project} number={numberOf(index)} layout="stacked" delay={0.15} />
+                  <ProjectCarousel projects={items} number={numberOf(index)} layout="stacked" delay={0.15} />
                 </motion.div>
               )}
             </AnimatePresence>
@@ -204,11 +213,11 @@ function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
 export function Projects() {
   const { t } = useI18n()
   const isDesktop = useMediaQuery('(min-width: 1024px)')
-  // No celular o primeiro projeto já começa aberto, para as telas aparecerem sem precisar tocar.
+  // No celular a primeira categoria já começa aberta, para as telas aparecerem sem precisar tocar.
   const [openIndex, setOpenIndex] = useState<number | null>(() => (isDesktop ? null : 0))
   const toggle = (index: number) => setOpenIndex((current) => (current === index ? null : index))
 
-  // Esc fecha o projeto aberto (escuta na janela: o foco pode estar fora da lista).
+  // Esc fecha a categoria aberta (escuta na janela: o foco pode estar fora da lista).
   useEffect(() => {
     if (openIndex === null) return
     const handleKeyDown = (event: KeyboardEvent) => event.key === 'Escape' && setOpenIndex(null)

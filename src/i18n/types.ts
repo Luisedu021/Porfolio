@@ -1,4 +1,4 @@
-import type { CompanyKey, ExperienceKey, ProjectCategory, ProjectKey, SectionId } from '../data/content'
+import type { CompanyKey, ExperienceKey, ProjectCategory, SectionId } from '../data/content'
 
 export type Language = 'pt' | 'en'
 
@@ -18,8 +18,6 @@ export type Service = {
 }
 
 export type ExperienceText = { role: string; description: string }
-
-export type ProjectText = { summary: string; challenge: string; result: string }
 
 /** Todos os textos do site. pt.ts e en.ts precisam ter exatamente esta forma. */
 export type Dictionary = {
@@ -74,15 +72,17 @@ export type Dictionary = {
     next: string
     /** Texto alternativo das telas nos mockups */
     screen: (title: string) => string
-    items: Record<ProjectKey, ProjectText>
   }
   contact: {
     title: string
     body: string
     emailLabel: string
     phoneLabel: string
-    fields: { name: string; email: string; location: string; project: string; message: string }
+    fields: { name: string; email: string; phone: string; location: string; project: string; message: string }
     submit: string
+    sending: string
+    sent: string
+    failed: string
     mailSubject: (project: string) => string
   }
   footer: { rights: string; backToTop: string }

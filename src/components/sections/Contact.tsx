@@ -1,44 +1,76 @@
 import { motion } from 'motion/react'
-import type { ComponentProps, FormEvent } from 'react'
+import { type ComponentProps, type FormEvent, useState } from 'react'
 import iconMail from '../../assets/icon-mail.svg'
 import iconPhone from '../../assets/icon-phone.svg'
 import iconSend from '../../assets/icon-send.svg'
 import { contact, socials } from '../../data/content'
 import { useI18n } from '../../i18n/context'
+import { API_URL, apiPost } from '../../lib/api'
+import { cn } from '../../lib/cn'
 import { EASE_OUT, fadeUp, inView, staggered } from '../../lib/motion'
 import { Button } from '../ui/Button'
 import { ContactInfo } from '../ui/ContactInfo'
 import { Container } from '../ui/Container'
 import { FormField } from '../ui/FormField'
 
+type Status = 'idle' | 'sending' | 'sent' | 'failed'
+
 export function Contact() {
-  const { t } = useI18n()
+  const { t, lang } = useI18n()
   const labels = t.contact.fields
+  const [status, setStatus] = useState<Status>('idle')
 
   const formFields: ComponentProps<typeof FormField>[] = [
     { label: labels.name, name: 'nome', required: true, autoComplete: 'name' },
     { label: labels.email, name: 'email', type: 'email', required: true, autoComplete: 'email' },
+    { label: labels.phone, name: 'whatsapp', type: 'tel', autoComplete: 'tel' },
     { label: labels.location, name: 'localizacao', autoComplete: 'address-level2' },
     { label: labels.project, name: 'projeto', required: true },
     { label: labels.message, name: 'mensagem', required: true, multiline: true },
   ]
 
-  /** Sem backend: abre o app de email do visitante com a mensagem já preenchida. */
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  /**
+   * Com o back-end (VITE_API_URL): salva no banco, avisa por email e confirma no WhatsApp.
+   * Sem ele: abre o app de email do visitante com a mensagem já preenchida.
+   */
+  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault()
-    const data = new FormData(event.currentTarget)
+    const form = event.currentTarget
+    const data = new FormData(form)
     const field = (name: string) => String(data.get(name) ?? '').trim()
 
-    const subject = t.contact.mailSubject(field('projeto'))
-    const body = [
-      `${labels.name}: ${field('nome')}`,
-      `${labels.email}: ${field('email')}`,
-      `${labels.location}: ${field('localizacao') || '-'}`,
-      '',
-      field('mensagem'),
-    ].join('\n')
+    if (!API_URL) {
+      const subject = t.contact.mailSubject(field('projeto'))
+      const body = [
+        `${labels.name}: ${field('nome')}`,
+        `${labels.email}: ${field('email')}`,
+        `${labels.phone}: ${field('whatsapp') || '-'}`,
+        `${labels.location}: ${field('localizacao') || '-'}`,
+        '',
+        field('mensagem'),
+      ].join('\n')
+      window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+      return
+    }
 
-    window.location.href = `mailto:${contact.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
+    setStatus('sending')
+    try {
+      await apiPost('/api/contact/', {
+        name: field('nome'),
+        email: field('email'),
+        phone: field('whatsapp'),
+        location: field('localizacao'),
+        project: field('projeto'),
+        message: field('mensagem'),
+        website: field('website'),
+        language: lang,
+      })
+      form.reset()
+      setStatus('sent')
+    } catch (error) {
+      console.error(error)
+      setStatus('failed')
+    }
   }
 
   return (
@@ -104,10 +136,16 @@ export function Contact() {
                 <FormField {...field} />
               </motion.div>
             ))}
-            <motion.div variants={fadeUp}>
-              <Button type="submit" icon={iconSend}>
-                {t.contact.submit}
+            {/* Armadilha para robôs: escondido de pessoas, mas bots preenchem e a mensagem é descartada. */}
+            <input type="text" name="website" tabIndex={-1} autoComplete="off" aria-hidden="true" className="hidden" />
+            <motion.div variants={fadeUp} className="flex flex-col items-start gap-3">
+              <Button type="submit" icon={iconSend} disabled={status === 'sending'}>
+                {status === 'sending' ? t.contact.sending : t.contact.submit}
               </Button>
+              <p role="status" className={cn('type-body-md', status === 'failed' ? 'text-red-600' : 'text-brand')}>
+                {status === 'sent' && t.contact.sent}
+                {status === 'failed' && t.contact.failed}
+              </p>
             </motion.div>
           </motion.form>
         </motion.div>

@@ -1,0 +1,64 @@
+import json
+from unittest import mock
+
+from django.core import mail
+from django.test import TestCase, override_settings
+
+from .models import ContactMessage, Project
+from .notifications import normalize_phone
+
+VALID = {'name': 'Ana Souza', 'email': 'ana@example.com', 'project': 'Site', 'message': 'Olá!', 'phone': '18 99999-0000'}
+
+
+@override_settings(NOTIFY_EMAIL='dono@example.com', EMAIL_BACKEND='django.core.mail.backends.locmem.EmailBackend')
+class ContactTests(TestCase):
+    def post(self, data):
+        return self.client.post('/api/contact/', json.dumps(data), content_type='application/json')
+
+    def test_saves_and_emails_owner(self):
+        response = self.post(VALID)
+        self.assertEqual(response.status_code, 201)
+        msg = ContactMessage.objects.get()
+        self.assertTrue(msg.email_sent)
+        self.assertFalse(msg.whatsapp_sent)  # sem token configurado
+        self.assertEqual(mail.outbox[0].to, ['dono@example.com'])
+        self.assertIn('18 99999-0000', mail.outbox[0].body)
+
+    def test_rejects_missing_fields_and_bad_email(self):
+        self.assertEqual(self.post({**VALID, 'message': ''}).status_code, 400)
+        self.assertEqual(self.post({**VALID, 'email': 'nao-e-email'}).status_code, 400)
+        self.assertFalse(ContactMessage.objects.exists())
+
+    def test_honeypot_is_discarded(self):
+        self.assertEqual(self.post({**VALID, 'website': 'spam.com'}).status_code, 201)
+        self.assertFalse(ContactMessage.objects.exists())
+
+    def test_email_failure_keeps_message(self):
+        with mock.patch('portfolio.notifications.send_mail', side_effect=OSError('smtp fora')):
+            self.assertEqual(self.post(VALID).status_code, 201)
+        msg = ContactMessage.objects.get()
+        self.assertFalse(msg.email_sent)
+        self.assertIn('smtp fora', msg.notification_error)
+
+    @override_settings(CORS_ALLOWED_ORIGINS=['http://localhost:5173'])
+    def test_cors_preflight(self):
+        response = self.client.options('/api/contact/', HTTP_ORIGIN='http://localhost:5173')
+        self.assertEqual(response['Access-Control-Allow-Origin'], 'http://localhost:5173')
+
+
+class PhoneTests(TestCase):
+    def test_normalize(self):
+        self.assertEqual(normalize_phone('(18) 99999-0000'), '5518999990000')
+        self.assertEqual(normalize_phone('+55 18 99999-0000'), '5518999990000')
+        self.assertEqual(normalize_phone('123'), '')
+
+
+class ProjectsApiTests(TestCase):
+    def test_lists_only_published_with_english_fallback(self):
+        Project.objects.create(key='a', category='uiux', title='A', summary_pt='Resumo', tags='UI/UX, App')
+        Project.objects.create(key='b', category='uiux', title='B', summary_pt='x', published=False)
+        data = self.client.get('/api/projects/').json()
+        self.assertEqual([p['key'] for p in data], ['a'])
+        self.assertEqual(data[0]['tags'], ['UI/UX', 'App'])
+        self.assertEqual(data[0]['text']['en']['summary'], 'Resumo')
+        self.assertIsNone(data[0]['screens']['desktop'])

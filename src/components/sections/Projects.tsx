@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'motion/react'
-import { useEffect, useId, useState } from 'react'
-import { projectCategories, projects } from '../../data/content'
+import { useEffect, useId, useMemo, useState } from 'react'
+import { type Project, type ProjectCategory, projectCategories } from '../../data/content'
 import { useMediaQuery } from '../../hooks/useMediaQuery'
+import { useProjects } from '../../hooks/useProjects'
 import { useI18n } from '../../i18n/context'
 import { cn } from '../../lib/cn'
 import { EASE_OUT, fadeUp, inView, staggered } from '../../lib/motion'
@@ -14,10 +15,13 @@ const COLLAPSED_WIDTH = 88
 
 const numberOf = (index: number) => String(index + 1).padStart(2, '0')
 
-/** Uma coluna (desktop) ou linha (celular) por categoria, com os projetos dela. */
-const groups = projectCategories
-  .map((category) => ({ category, items: projects.filter((project) => project.category === category) }))
-  .filter((group) => group.items.length > 0)
+type Group = { category: ProjectCategory; items: Project[] }
+
+/** Uma coluna (desktop) ou linha (celular) por categoria, com os projetos dela. Categoria vazia some. */
+const groupByCategory = (projects: Project[]): Group[] =>
+  projectCategories
+    .map((category) => ({ category, items: projects.filter((project) => project.category === category) }))
+    .filter((group) => group.items.length > 0)
 
 function ArrowUpRight({ className }: { className?: string }) {
   return (
@@ -28,16 +32,17 @@ function ArrowUpRight({ className }: { className?: string }) {
 }
 
 type ListProps = {
+  groups: Group[]
   openIndex: number | null
   onToggle: (index: number) => void
   onClose: () => void
 }
 
 /**
- * Desktop: uma coluna por categoria com o número grande. No hover, o site do primeiro projeto
- * rola dentro da coluna; no clique a coluna cresce e mostra os projetos, e as outras viram faixas.
+ * Desktop: uma coluna por categoria com o número grande. No hover aparece a capa do primeiro projeto;
+ * no clique a coluna cresce e mostra os projetos, e as outras viram faixas.
  */
-function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
+function ProjectColumns({ groups, openIndex, onToggle, onClose }: ListProps) {
   const { t } = useI18n()
   const baseId = useId()
   // Largura final da coluna aberta: o conteúdo já nasce nesse tamanho e não se reorganiza enquanto a coluna cresce.
@@ -71,7 +76,7 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
               inert={isOpen}
               className="group absolute inset-0 flex flex-col text-left text-ink outline-none focus-visible:ring-2 focus-visible:ring-brand focus-visible:ring-inset"
             >
-              {/* Capa: a página do primeiro projeto, que rola devagar enquanto o mouse está em cima */}
+              {/* Capa: o topo do site do primeiro projeto, que aparece com um leve zoom de afastamento */}
               <span
                 aria-hidden="true"
                 className="absolute inset-0 bg-inverse opacity-0 transition-opacity duration-700 group-hover:opacity-100 group-focus-visible:opacity-100"
@@ -81,10 +86,7 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
                     src={items[0].preview}
                     alt=""
                     loading="lazy"
-                    className={cn(
-                      'size-full object-cover transition-[object-position] duration-[1.2s] ease-out group-hover:duration-[14s] group-hover:ease-linear',
-                      items[0].previewWide ? 'object-left group-hover:object-right' : 'object-top group-hover:object-bottom',
-                    )}
+                    className="size-full scale-110 object-cover object-top transition-transform duration-[1.2s] ease-out group-hover:scale-100"
                   />
                 )}
                 {/* Escurece em cima e embaixo para os textos continuarem legíveis */}
@@ -152,7 +154,7 @@ function ProjectColumns({ openIndex, onToggle, onClose }: ListProps) {
 }
 
 /** Celular e tablet: acordeão por categoria; a linha tocada abre com os projetos dela. */
-function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
+function ProjectList({ groups, openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
   const { t } = useI18n()
   const baseId = useId()
 
@@ -213,6 +215,8 @@ function ProjectList({ openIndex, onToggle }: Omit<ListProps, 'onClose'>) {
 export function Projects() {
   const { t } = useI18n()
   const isDesktop = useMediaQuery('(min-width: 1024px)')
+  const projects = useProjects()
+  const groups = useMemo(() => groupByCategory(projects), [projects])
   // No celular a primeira categoria já começa aberta, para as telas aparecerem sem precisar tocar.
   const [openIndex, setOpenIndex] = useState<number | null>(() => (isDesktop ? null : 0))
   const toggle = (index: number) => setOpenIndex((current) => (current === index ? null : index))
@@ -241,9 +245,9 @@ export function Projects() {
         </div>
 
         {isDesktop ? (
-          <ProjectColumns openIndex={openIndex} onToggle={toggle} onClose={() => setOpenIndex(null)} />
+          <ProjectColumns groups={groups} openIndex={openIndex} onToggle={toggle} onClose={() => setOpenIndex(null)} />
         ) : (
-          <ProjectList openIndex={openIndex} onToggle={toggle} />
+          <ProjectList groups={groups} openIndex={openIndex} onToggle={toggle} />
         )}
       </Container>
     </section>

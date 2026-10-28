@@ -144,47 +144,24 @@ export const en: Dictionary = {
     previous: 'Previous project',
     next: 'Next project',
     screen: (title) => `Screen from the ${title} project`,
-    // TODO: fill in the challenge and the result of each project (the texts below are only a guide).
-    items: {
-      garanhani: {
-        summary:
-          "Landing page for Dr. Rafael Garanhani's practice: medical acupuncture, neuromodulation, homeopathy and general care.",
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-      wellnova: {
-        summary:
-          "Wellnova's public website, an AI platform for oil and gas well integrity. I worked on refactoring the code.",
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-      ironCapi: {
-        summary:
-          'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training calendar, plus the team dashboard.',
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-      wellnovaApp: {
-        summary:
-          "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-      megaAtas: {
-        summary:
-          "Mega Jr.'s meeting minutes generator: it takes the details, the date and the key points and writes the summary. My first project with JavaScript and APIs.",
-        challenge: 'The problem the client or the users had.',
-        result: 'What changed after delivery (ideally with a number).',
-      },
-    },
   },
   contact: {
     title: "Let's talk about your project",
     body: "Tell me a bit about your idea or project and let's talk about how I can help.",
     emailLabel: 'Email',
     phoneLabel: 'Phone',
-    fields: { name: 'Name', email: 'Email', location: 'Location', project: 'Project', message: 'Message' },
+    fields: {
+      name: 'Name',
+      email: 'Email',
+      phone: 'WhatsApp (with country code)',
+      location: 'Location',
+      project: 'Project',
+      message: 'Message',
+    },
     submit: 'Send',
+    sending: 'Sending...',
+    sent: "Message sent! I'll get back to you soon.",
+    failed: "Couldn't send it right now. Try again or email me.",
     mailSubject: (project) => `New project: ${project}`,
   },
   footer: { rights: 'All rights reserved.', backToTop: 'Back to top' },

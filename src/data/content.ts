@@ -24,6 +24,7 @@ import wellnovaMobile from '../assets/projects/wellnova-mobile.jpg'
 import wellnovaPreview from '../assets/projects/wellnova-preview.jpg'
 import wellnovaTablet from '../assets/projects/wellnova-tablet.jpg'
 import type { DeviceScreens } from '../components/ui/DeviceMockups'
+import type { Language } from '../i18n/types'
 
 /** Ids das seções, na ordem do menu. Os rótulos vêm de `t.nav`. */
 export const sectionIds = ['inicio', 'sobre', 'servicos', 'experiencia', 'projetos', 'contato'] as const
@@ -44,10 +45,12 @@ export type ExperienceKey = (typeof experiences)[number]['roles'][number]
 export const projectCategories = ['landing', 'uiux', 'software'] as const
 export type ProjectCategory = (typeof projectCategories)[number]
 
-export type ProjectKey = 'garanhani' | 'wellnova' | 'ironCapi' | 'wellnovaApp' | 'megaAtas'
+/** Textos de um projeto num idioma. Desafio e resultado vazios não aparecem. */
+export type ProjectText = { summary: string; challenge: string; result: string }
 
 export type Project = {
-  key: ProjectKey
+  /** Identificador único (o "identificador" no painel). */
+  key: string
   category: ProjectCategory
   title: string
   /** Ferramentas e tipo de entrega (iguais nos dois idiomas). */
@@ -57,17 +60,21 @@ export type Project = {
    * notebook + tablet + celular, tablet + celular ou só notebook.
    */
   screens: DeviceScreens
-  /** Página inteira na largura do celular: rola dentro da coluna ao passar o mouse. */
+  /** Capa da coluna no hover (aparece o topo da imagem). */
   preview: string
-  /** Imagem larga (tela de sistema): no hover ela desliza para o lado em vez de rolar para baixo. */
-  previewWide?: boolean
   /** Link do projeto (site, Behance, Figma...). Sem link, o botão não aparece. */
   href?: string
+  text: Record<Language, ProjectText>
 }
 
+const text = (summaryPt: string, summaryEn: string): Record<Language, ProjectText> => ({
+  pt: { summary: summaryPt, challenge: '', result: '' },
+  en: { summary: summaryEn, challenge: '', result: '' },
+})
+
 /**
- * Projetos. Resumo, desafio e resultado vêm de `t.projects.items[key]`.
- * Para adicionar um projeto, basta colocá-lo aqui com a categoria: ele entra no carrossel dela.
+ * Projetos usados enquanto a API (painel em backend/) não está configurada ou não responde.
+ * Com VITE_API_URL definido, o site lê os projetos do painel (ver src/hooks/useProjects.ts).
  * O primeiro de cada categoria é a capa da coluna.
  */
 export const projects: Project[] = [
@@ -79,6 +86,10 @@ export const projects: Project[] = [
     screens: { desktop: garanhaniDesktop, tablet: garanhaniTablet, mobile: garanhaniMobile },
     preview: garanhaniPreview,
     href: 'https://drgaranhani.com.br/',
+    text: text(
+      'Landing page do consultório do Dr. Rafael Garanhani: acupuntura médica, neuromodulação, homeopatia e clínica geral.',
+      "Landing page for Dr. Rafael Garanhani's practice: medical acupuncture, neuromodulation, homeopathy and general care.",
+    ),
   },
   {
     key: 'wellnova',
@@ -88,6 +99,10 @@ export const projects: Project[] = [
     screens: { desktop: wellnovaDesktop, tablet: wellnovaTablet, mobile: wellnovaMobile },
     preview: wellnovaPreview,
     href: 'https://wellnova.ai/',
+    text: text(
+      'Hotsite público da Wellnova, plataforma de IA para integridade de poços de óleo e gás. Atuei na refatoração do código.',
+      "Wellnova's public website, an AI platform for oil and gas well integrity. I worked on refactoring the code.",
+    ),
   },
   {
     key: 'ironCapi',
@@ -97,6 +112,10 @@ export const projects: Project[] = [
     screens: { tablet: ironCapiTablet, mobile: ironCapiHome },
     preview: ironCapiHome,
     href: 'https://luisedu021.github.io/Iron-Capi/painel/',
+    text: text(
+      'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário de treinos, além do painel do time.',
+      'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training calendar, plus the team dashboard.',
+    ),
   },
   {
     key: 'wellnovaApp',
@@ -105,7 +124,10 @@ export const projects: Project[] = [
     tags: ['Software', 'Dashboard'],
     screens: { desktop: wellnovaAppDesktop },
     preview: wellnovaAppDesktop,
-    previewWide: true,
+    text: text(
+      'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
+      "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
+    ),
   },
   {
     key: 'megaAtas',
@@ -115,6 +137,10 @@ export const projects: Project[] = [
     screens: { desktop: megaAtasDesktop, tablet: megaAtasTablet, mobile: megaAtasMobile },
     preview: megaAtasPreview,
     href: 'https://mega-jr-atas.vercel.app/',
+    text: text(
+      'Gerador de atas de reunião da Mega Jr.: recebe os detalhes, a data e os pontos importantes e gera o resumo. Meu primeiro projeto com JavaScript e APIs.',
+      "Mega Jr.'s meeting minutes generator: it takes the details, the date and the key points and writes the summary. My first project with JavaScript and APIs.",
+    ),
   },
 ]
 

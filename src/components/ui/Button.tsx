@@ -7,14 +7,16 @@ type ButtonProps = {
   icon?: string
   href?: string
   type?: 'button' | 'submit'
+  disabled?: boolean
   className?: string
 }
 
 /** Botão primário (Figma: Button). Vira <a> quando recebe `href`. */
-export function Button({ children, icon, href, type = 'button', className }: ButtonProps) {
+export function Button({ children, icon, href, type = 'button', disabled, className }: ButtonProps) {
   const classes = cn(
     'inline-flex shrink-0 items-center gap-2 rounded-md bg-brand-strong px-6 py-4 type-button text-white transition-colors',
     'hover:bg-brand focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-brand',
+    'disabled:cursor-wait disabled:opacity-70',
     className,
   )
   const content = (
@@ -33,7 +35,7 @@ export function Button({ children, icon, href, type = 'button', className }: But
   }
 
   return (
-    <button type={type} className={classes}>
+    <button type={type} disabled={disabled} className={classes}>
       {content}
     </button>
   )

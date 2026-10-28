@@ -22,9 +22,14 @@ type ProjectShowcaseProps = {
 
 /** Conteúdo de um projeto: resumo, desafio, resultado, tags, link e mockups. */
 export function ProjectShowcase({ project, number, layout, delay = 0 }: ProjectShowcaseProps) {
-  const { t } = useI18n()
-  const text = t.projects.items[project.key]
+  const { t, lang } = useI18n()
+  const text = project.text[lang]
   const isSide = layout === 'side'
+  // Desafio e resultado são opcionais no painel: só aparecem os preenchidos.
+  const details = [
+    { label: t.projects.challengeLabel, value: text.challenge },
+    { label: t.projects.resultLabel, value: text.result },
+  ].filter((item) => item.value.trim())
 
   return (
     <motion.div
@@ -36,29 +41,36 @@ export function ProjectShowcase({ project, number, layout, delay = 0 }: ProjectS
         isSide ? 'h-full grid-cols-[minmax(0,300px)_minmax(0,1fr)] items-center p-10 xl:gap-14 xl:p-14' : 'px-5 pt-2 pb-8',
       )}
     >
-      <div className="relative flex flex-col gap-5">
+      <div className={cn('relative flex flex-col', isSide ? 'gap-4' : 'gap-5')}>
         <motion.div variants={fadeUp} className="flex items-center gap-3">
           {isSide && <span className="font-display text-lg font-light text-white/60">{number}</span>}
           <span className="rounded-full border border-white/20 px-3 py-1 type-tag text-white/80">
             {t.projects.categories[project.category]}
           </span>
         </motion.div>
-        <motion.h3 variants={fadeUp} className={cn('text-white', isSide ? 'type-h2' : 'type-h3')}>
+        {/* Na coluna aberta o título é menor que o H2 da seção, para nomes longos não empurrarem o botão para fora */}
+        <motion.h3
+          variants={fadeUp}
+          className={cn(
+            'text-white',
+            isSide ? 'font-display text-[32px] leading-[1.15] font-semibold tracking-[-0.01em]' : 'type-h3',
+          )}
+        >
           {project.title}
         </motion.h3>
         <motion.p variants={fadeUp} className="type-body-md text-white/75">
           {text.summary}
         </motion.p>
-        <motion.dl variants={fadeUp} className="grid gap-4 border-t border-white/15 pt-5">
-          <div className="flex flex-col gap-1">
-            <dt className="type-caption tracking-widest text-tag-foreground uppercase">{t.projects.challengeLabel}</dt>
-            <dd className="type-body-md text-white/90">{text.challenge}</dd>
-          </div>
-          <div className="flex flex-col gap-1">
-            <dt className="type-caption tracking-widest text-tag-foreground uppercase">{t.projects.resultLabel}</dt>
-            <dd className="type-body-md text-white/90">{text.result}</dd>
-          </div>
-        </motion.dl>
+        {details.length > 0 && (
+          <motion.dl variants={fadeUp} className={cn('grid border-t border-white/15', isSide ? 'gap-3 pt-4' : 'gap-4 pt-5')}>
+            {details.map((item) => (
+              <div key={item.label} className="flex flex-col gap-1">
+                <dt className="type-caption tracking-widest text-tag-foreground uppercase">{item.label}</dt>
+                <dd className="type-body-md text-white/90">{item.value}</dd>
+              </div>
+            ))}
+          </motion.dl>
+        )}
         <motion.ul variants={fadeUp} className="flex flex-wrap gap-2">
           {project.tags.map((tag) => (
             <Tag key={tag}>{tag}</Tag>

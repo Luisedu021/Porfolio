@@ -1,5 +1,5 @@
 import { AnimatePresence, motion, type PanInfo } from 'motion/react'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import arrowRight from '../../assets/icon-arrow-right.svg'
 import type { Project } from '../../data/content'
 import { useI18n } from '../../i18n/context'
@@ -38,6 +38,11 @@ export function ProjectCarousel({ projects, number, layout, delay = 0, onClose }
   const total = projects.length
   const hasNav = total > 1
   const isSide = layout === 'side'
+  const closeRef = useRef<HTMLButtonElement>(null)
+
+  // O botão da coluna fica inerte quando ela abre; o foco vem para o "fechar" para não se perder.
+  // Sem rolar: com autoFocus o navegador rolava a lista (overflow-hidden) enquanto a coluna crescia.
+  useEffect(() => closeRef.current?.focus({ preventScroll: true }), [])
 
   // Dá a volta: depois do último vem o primeiro (assim o botão focado nunca fica desativado).
   const go = (step: number) => setPage(([current]) => [(current + step + total) % total, step])
@@ -103,12 +108,11 @@ export function ProjectCarousel({ projects, number, layout, delay = 0, onClose }
       )}
 
       {onClose && (
-        // O botão da coluna fica inerte quando ela abre; o foco vem para cá para não se perder.
         <button
           type="button"
           onClick={onClose}
           aria-label={t.projects.close}
-          autoFocus
+          ref={closeRef}
           className="absolute top-5 right-5 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
         >
           <svg viewBox="0 0 16 16" className="size-4" aria-hidden="true">

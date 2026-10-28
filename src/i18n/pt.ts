@@ -145,47 +145,24 @@ export const pt: Dictionary = {
     previous: 'Projeto anterior',
     next: 'Próximo projeto',
     screen: (title) => `Tela do projeto ${title}`,
-    // TODO: complete o desafio e o resultado de cada projeto (os textos abaixo são só um guia).
-    items: {
-      garanhani: {
-        summary:
-          'Landing page do consultório do Dr. Rafael Garanhani: acupuntura médica, neuromodulação, homeopatia e clínica geral.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-      wellnova: {
-        summary:
-          'Hotsite público da Wellnova, plataforma de IA para integridade de poços de óleo e gás. Atuei na refatoração do código.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-      ironCapi: {
-        summary:
-          'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário de treinos, além do painel do time.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-      wellnovaApp: {
-        summary:
-          'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-      megaAtas: {
-        summary:
-          'Gerador de atas de reunião da Mega Jr.: recebe os detalhes, a data e os pontos importantes e gera o resumo. Meu primeiro projeto com JavaScript e APIs.',
-        challenge: 'Qual problema o cliente ou o usuário tinha.',
-        result: 'O que mudou depois da entrega (de preferência com um número).',
-      },
-    },
   },
   contact: {
     title: 'Vamos discutir o seu projeto?',
     body: 'Conte um pouco sobre a sua ideia ou projeto e vamos conversar sobre como posso ajudar.',
     emailLabel: 'Email',
     phoneLabel: 'Telefone',
-    fields: { name: 'Nome', email: 'Email', location: 'Localização', project: 'Projeto', message: 'Mensagem' },
+    fields: {
+      name: 'Nome',
+      email: 'Email',
+      phone: 'WhatsApp (com DDD)',
+      location: 'Localização',
+      project: 'Projeto',
+      message: 'Mensagem',
+    },
     submit: 'Enviar',
+    sending: 'Enviando...',
+    sent: 'Mensagem enviada! Vou te responder em breve.',
+    failed: 'Não consegui enviar agora. Tente de novo ou me chame por email.',
     mailSubject: (project) => `Novo projeto: ${project}`,
   },
   footer: { rights: 'Todos os direitos reservados.', backToTop: 'Voltar ao início' },

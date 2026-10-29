@@ -46,13 +46,26 @@ PROJECTS = [
         'category': 'uiux',
         'title': 'Iron Capi',
         'tags': 'UI/UX, App',
-        'href': 'https://luisedu021.github.io/Iron-Capi/painel/',
+        'href': 'https://luisedu021.github.io/Iron-Capi/',
         'summary_pt': 'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário '
         'de treinos, além do painel do time.',
         'summary_en': 'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training '
         'calendar, plus the team dashboard.',
-        'images': {'screen_tablet': 'ironcapi-tablet.jpg', 'screen_mobile': 'ironcapi-home.jpg',
-                   'preview': 'ironcapi-home.jpg'},
+        'images': {'screen_tablet': 'ironcapi-tablet.jpg', 'screen_mobile': 'ironcapi-mobile.jpg',
+                   'preview': 'ironcapi-preview.jpg'},
+    },
+    {
+        'key': 'cop15',
+        'category': 'uiux',
+        'title': 'COP15 POP UFMS',
+        'tags': 'UI/UX, Web',
+        'href': '',
+        'summary_pt': 'Site da COP15 POP UFMS, a programação aberta da UFMS durante a COP15 de espécies migratórias '
+        'em Campo Grande (março de 2026). Fiz o UI/UX pela Mega Jr.',
+        'summary_en': "Website for COP15 POP UFMS, UFMS's public program during the COP15 on migratory species in "
+        'Campo Grande (March 2026). I did the UI/UX through Mega Jr.',
+        'images': {'screen_desktop': 'cop15-desktop.jpg', 'screen_tablet': 'cop15-tablet.jpg',
+                   'screen_mobile': 'cop15-mobile.jpg', 'preview': 'cop15-preview.jpg'},
     },
     {
         'key': 'wellnovaApp',
@@ -64,7 +77,9 @@ PROJECTS = [
         'um módulo específico do sistema.',
         'summary_en': "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a "
         'specific module of the system.',
-        'images': {'screen_desktop': 'wellnova-app-desktop.jpg', 'preview': 'wellnova-app-desktop.jpg'},
+        # Mesmas imagens do hotsite: as telas internas do sistema não são públicas.
+        'images': {'screen_desktop': 'wellnova-desktop.jpg', 'screen_tablet': 'wellnova-tablet.jpg',
+                   'screen_mobile': 'wellnova-mobile.jpg', 'preview': 'wellnova-preview.jpg'},
     },
     {
         'key': 'megaAtas',

@@ -1,0 +1,39 @@
+# API Django no Render (plano free). No painel do Render: New → Blueprint → este repositório.
+# Variáveis com sync: false são pedidas na criação (ou em Environment depois). Veja backend/README.md.
+services:
+  - type: web
+    name: portfolio-api
+    runtime: python
+    plan: free
+    rootDir: backend
+    buildCommand: pip install -r requirements.txt && python manage.py collectstatic --noinput && python manage.py migrate
+    startCommand: gunicorn config.wsgi
+    healthCheckPath: /api/projects/
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.12.7
+      - key: DJANGO_DEBUG
+        value: '0'
+      - key: DJANGO_SECRET_KEY
+        generateValue: true
+      # Ex.: api.seudominio.dev.br (o xxx.onrender.com já entra sozinho)
+      - key: DJANGO_ALLOWED_HOSTS
+        sync: false
+      # Ex.: https://seudominio.dev.br,https://www.seudominio.dev.br
+      - key: CORS_ALLOWED_ORIGINS
+        sync: false
+      # Connection string do Neon (postgres://...)
+      - key: DATABASE_URL
+        sync: false
+      - key: R2_ACCOUNT_ID
+        sync: false
+      - key: R2_BUCKET
+        sync: false
+      - key: R2_ACCESS_KEY_ID
+        sync: false
+      - key: R2_SECRET_ACCESS_KEY
+        sync: false
+      - key: R2_PUBLIC_DOMAIN
+        sync: false
+      - key: NOTIFY_EMAIL
+        sync: false

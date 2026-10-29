@@ -17,8 +17,13 @@ def env_list(name, default=''):
 DEBUG = os.getenv('DJANGO_DEBUG', '1') == '1'
 SECRET_KEY = os.getenv('DJANGO_SECRET_KEY', 'dev-only-insecure-key')
 ALLOWED_HOSTS = env_list('DJANGO_ALLOWED_HOSTS', 'localhost,127.0.0.1')
+# O Render informa o endereço próprio do serviço (xxx.onrender.com).
+if os.getenv('RENDER_EXTERNAL_HOSTNAME'):
+    ALLOWED_HOSTS.append(os.getenv('RENDER_EXTERNAL_HOSTNAME'))
 CORS_ALLOWED_ORIGINS = env_list('CORS_ALLOWED_ORIGINS', 'http://localhost:5173')
 CSRF_TRUSTED_ORIGINS = [f'https://{host}' for host in ALLOWED_HOSTS if host not in ('localhost', '127.0.0.1')]
+# Atrás do proxy HTTPS do Render/Cloudflare: sem isso as URLs das imagens saem com http://.
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -32,6 +37,7 @@ INSTALLED_APPS = [
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
@@ -82,6 +88,33 @@ STATIC_URL = 'static/'
 STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
+
+# CSS/JS do admin servidos pelo próprio Django (WhiteNoise). Imagens enviadas: pasta media/ local
+# ou, com R2_BUCKET, um bucket do Cloudflare R2 (o disco do Render se apaga a cada deploy).
+STORAGES = {
+    'default': {'BACKEND': 'django.core.files.storage.FileSystemStorage'},
+    'staticfiles': {
+        'BACKEND': 'django.contrib.staticfiles.storage.StaticFilesStorage'
+        if DEBUG
+        else 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+    },
+}
+if os.getenv('R2_BUCKET'):
+    STORAGES['default'] = {
+        'BACKEND': 'storages.backends.s3.S3Storage',
+        'OPTIONS': {
+            'bucket_name': os.getenv('R2_BUCKET'),
+            'endpoint_url': f'https://{os.getenv("R2_ACCOUNT_ID")}.r2.cloudflarestorage.com',
+            'access_key': os.getenv('R2_ACCESS_KEY_ID'),
+            'secret_key': os.getenv('R2_SECRET_ACCESS_KEY'),
+            'region_name': 'auto',
+            'signature_version': 's3v4',
+            # Endereço público do bucket (ex.: media.seudominio.dev.br), sem https://
+            'custom_domain': os.getenv('R2_PUBLIC_DOMAIN'),
+            'querystring_auth': False,
+            'file_overwrite': False,
+        },
+    }
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 

@@ -13,6 +13,7 @@ export const pt: Dictionary = {
     sobre: 'Sobre',
     servicos: 'Serviços',
     experiencia: 'Resumo',
+    educacao: 'Educação',
     projetos: 'Projetos',
     contato: 'Contato',
   },
@@ -100,7 +101,7 @@ export const pt: Dictionary = {
   },
   about: {
     title: 'Sobre',
-    body: 'Formando em Ciência da Computação pela UFMS, sou um estudante e profissional que sempre busco me desafiar e realizar coisas novas, apaixonado por UI/UX Design e Design de Produto, tento sempre procurar e realizar o melhor trabalho possível.',
+    body: 'Sou o Luís Eduardo, designer e desenvolvedor, estudante de Ciência da Computação na UFMS. Trabalho na ponte entre design e código: entendo o problema e quem vai usar, desenho a interface no Figma e levo até o produto no ar. Hoje atuo como UI/UX Designer e dev na Ouronova e na Mega Jr., onde já passei por design, desenvolvimento e área comercial. Gosto de desafios novos e de entregar trabalho bem feito, do primeiro rascunho ao deploy.',
   },
   experience: {
     title: 'Minha experiência profissional',
@@ -131,6 +132,23 @@ export const pt: Dictionary = {
       },
     },
   },
+  education: {
+    title: 'Educação',
+    status: 'Em andamento',
+    degree: 'Bacharelado em Ciência da Computação',
+    institution: 'Universidade Federal de Mato Grosso do Sul',
+    progress: (year, total) => `${year}º ano de ${total}`,
+    start: 'Início',
+    now: 'Agora',
+    graduation: 'Formatura',
+    language: {
+      status: 'Certificado',
+      title: 'Inglês fluente',
+      exam: 'Cambridge B2 First (FCE)',
+      result: 'Certificado no nível C1',
+      scale: 'Nível C1 de C2',
+    },
+  },
   projects: {
     titleStart: 'Meus ',
     titleHighlight: 'projetos',
@@ -150,7 +168,9 @@ export const pt: Dictionary = {
     title: 'Vamos discutir o seu projeto?',
     body: 'Conte um pouco sobre a sua ideia ou projeto e vamos conversar sobre como posso ajudar.',
     emailLabel: 'Email',
-    phoneLabel: 'Telefone',
+    whatsappLabel: 'WhatsApp',
+    whatsappCta: 'Chamar no WhatsApp',
+    whatsappMessage: 'Olá, Luís! Vi seu portfólio e quero conversar sobre um projeto.',
     fields: {
       name: 'Nome',
       email: 'Email',

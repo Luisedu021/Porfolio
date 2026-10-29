@@ -28,7 +28,11 @@ export function Button({ children, icon, href, type = 'button', disabled, classN
 
   if (href) {
     return (
-      <a href={href} className={classes}>
+      <a
+        href={href}
+        {...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+        className={classes}
+      >
         {content}
       </a>
     )

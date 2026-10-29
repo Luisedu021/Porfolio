@@ -56,6 +56,26 @@ export type Dictionary = {
     /** Cargo e descrição de cada função */
     items: Record<ExperienceKey, ExperienceText>
   }
+  education: {
+    title: string
+    status: string
+    degree: string
+    institution: string
+    /** Ex.: "2º ano de 4" */
+    progress: (year: number, total: number) => string
+    /** Rótulos da linha do tempo: primeiro ano, ano atual e último ano */
+    start: string
+    now: string
+    graduation: string
+    language: {
+      status: string
+      title: string
+      exam: string
+      result: string
+      /** Rótulo acima da escala A1–C2 */
+      scale: string
+    }
+  }
   projects: {
     titleStart: string
     titleHighlight: string
@@ -77,7 +97,9 @@ export type Dictionary = {
     title: string
     body: string
     emailLabel: string
-    phoneLabel: string
+    whatsappLabel: string
+    whatsappCta: string
+    whatsappMessage: string
     fields: { name: string; email: string; phone: string; location: string; project: string; message: string }
     submit: string
     sending: string

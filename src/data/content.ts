@@ -8,17 +8,21 @@ import iconInstagramBrand from '../assets/icon-instagram-brand.svg'
 import iconInstagram from '../assets/icon-instagram.svg'
 import iconLinkedinBrand from '../assets/icon-linkedin-brand.svg'
 import iconLinkedin from '../assets/icon-linkedin.svg'
+import cop15Desktop from '../assets/projects/cop15-desktop.jpg'
+import cop15Mobile from '../assets/projects/cop15-mobile.jpg'
+import cop15Preview from '../assets/projects/cop15-preview.jpg'
+import cop15Tablet from '../assets/projects/cop15-tablet.jpg'
 import garanhaniDesktop from '../assets/projects/garanhani-desktop.jpg'
 import garanhaniMobile from '../assets/projects/garanhani-mobile.jpg'
 import garanhaniPreview from '../assets/projects/garanhani-preview.jpg'
 import garanhaniTablet from '../assets/projects/garanhani-tablet.jpg'
-import ironCapiHome from '../assets/projects/ironcapi-home.jpg'
+import ironCapiMobile from '../assets/projects/ironcapi-mobile.jpg'
+import ironCapiPreview from '../assets/projects/ironcapi-preview.jpg'
 import ironCapiTablet from '../assets/projects/ironcapi-tablet.jpg'
 import megaAtasDesktop from '../assets/projects/megaatas-desktop.jpg'
 import megaAtasMobile from '../assets/projects/megaatas-mobile.jpg'
 import megaAtasPreview from '../assets/projects/megaatas-preview.jpg'
 import megaAtasTablet from '../assets/projects/megaatas-tablet.jpg'
-import wellnovaAppDesktop from '../assets/projects/wellnova-app-desktop.jpg'
 import wellnovaDesktop from '../assets/projects/wellnova-desktop.jpg'
 import wellnovaMobile from '../assets/projects/wellnova-mobile.jpg'
 import wellnovaPreview from '../assets/projects/wellnova-preview.jpg'
@@ -27,8 +31,15 @@ import type { DeviceScreens } from '../components/ui/DeviceMockups'
 import type { Language } from '../i18n/types'
 
 /** Ids das seções, na ordem do menu. Os rótulos vêm de `t.nav`. */
-export const sectionIds = ['inicio', 'sobre', 'servicos', 'experiencia', 'projetos', 'contato'] as const
+export const sectionIds = ['inicio', 'sobre', 'servicos', 'experiencia', 'educacao', 'projetos', 'contato'] as const
 export type SectionId = (typeof sectionIds)[number]
+
+/** Graduação. Curso, instituição e textos vêm de `t.education`; o ano atual do curso é calculado. */
+export const education = { startYear: 2025, endYear: 2028 }
+
+/** Escala do Quadro Europeu (CEFR) e meu nível de inglês nela. */
+export const cefrLevels = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'] as const
+export const englishLevel: (typeof cefrLevels)[number] = 'C1'
 
 /**
  * Linha do tempo, agrupada por empresa (um marcador por empresa, cargos empilhados).
@@ -109,12 +120,24 @@ export const projects: Project[] = [
     category: 'uiux',
     title: 'Iron Capi',
     tags: ['UI/UX', 'App'],
-    screens: { tablet: ironCapiTablet, mobile: ironCapiHome },
-    preview: ironCapiHome,
-    href: 'https://luisedu021.github.io/Iron-Capi/painel/',
+    screens: { tablet: ironCapiTablet, mobile: ironCapiMobile },
+    preview: ironCapiPreview,
+    href: 'https://luisedu021.github.io/Iron-Capi/',
     text: text(
       'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário de treinos, além do painel do time.',
       'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training calendar, plus the team dashboard.',
+    ),
+  },
+  {
+    key: 'cop15',
+    category: 'uiux',
+    title: 'COP15 POP UFMS',
+    tags: ['UI/UX', 'Web'],
+    screens: { desktop: cop15Desktop, tablet: cop15Tablet, mobile: cop15Mobile },
+    preview: cop15Preview,
+    text: text(
+      'Site da COP15 POP UFMS, a programação aberta da UFMS durante a COP15 de espécies migratórias em Campo Grande (março de 2026). Fiz o UI/UX pela Mega Jr.',
+      "Website for COP15 POP UFMS, UFMS's public program during the COP15 on migratory species in Campo Grande (March 2026). I did the UI/UX through Mega Jr.",
     ),
   },
   {
@@ -122,8 +145,9 @@ export const projects: Project[] = [
     category: 'software',
     title: 'Wellnova',
     tags: ['Software', 'Dashboard'],
-    screens: { desktop: wellnovaAppDesktop },
-    preview: wellnovaAppDesktop,
+    // Mesmas imagens do hotsite: as telas internas do sistema não são públicas.
+    screens: { desktop: wellnovaDesktop, tablet: wellnovaTablet, mobile: wellnovaMobile },
+    preview: wellnovaPreview,
     text: text(
       'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
       "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
@@ -147,7 +171,8 @@ export const projects: Project[] = [
 export const contact = {
   email: 'dudulopesantos22@gmail.com',
   phone: '(18) 99159-7894',
-  phoneHref: 'tel:+5518991597894',
+  /** Abre a conversa no WhatsApp com a mensagem inicial (texto em t.contact.whatsappMessage). */
+  whatsappHref: (message: string) => `https://wa.me/5518991597894?text=${encodeURIComponent(message)}`,
 }
 
 // TODO: troque `href` pelos seus perfis reais.

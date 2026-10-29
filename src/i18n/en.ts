@@ -13,6 +13,7 @@ export const en: Dictionary = {
     sobre: 'About',
     servicos: 'Services',
     experiencia: 'Resume',
+    educacao: 'Education',
     projetos: 'Projects',
     contato: 'Contact',
   },
@@ -99,7 +100,7 @@ export const en: Dictionary = {
   },
   about: {
     title: 'About',
-    body: "Graduating in Computer Science at UFMS, I'm a student and professional who always seeks to challenge myself and do new things, passionate about UI/UX Design and Product Design, I always try to seek out and deliver the best work possible.",
+    body: "I'm Luís Eduardo, a designer and developer studying Computer Science at UFMS. I work where design meets code: I understand the problem and the people who will use it, design the interface in Figma and take it all the way to a live product. Today I work as a UI/UX Designer and developer at Ouronova and at Mega Jr., where I've also done development and sales. I enjoy new challenges and delivering solid work, from the first sketch to deploy.",
   },
   experience: {
     title: 'My professional experience',
@@ -130,6 +131,23 @@ export const en: Dictionary = {
       },
     },
   },
+  education: {
+    title: 'Education',
+    status: 'In progress',
+    degree: "Bachelor's in Computer Science",
+    institution: 'Federal University of Mato Grosso do Sul',
+    progress: (year, total) => `Year ${year} of ${total}`,
+    start: 'Start',
+    now: 'Now',
+    graduation: 'Graduation',
+    language: {
+      status: 'Certified',
+      title: 'Fluent English',
+      exam: 'Cambridge B2 First (FCE)',
+      result: 'Certified at C1 level',
+      scale: 'Level C1 of C2',
+    },
+  },
   projects: {
     titleStart: 'My ',
     titleHighlight: 'projects',
@@ -149,7 +167,9 @@ export const en: Dictionary = {
     title: "Let's talk about your project",
     body: "Tell me a bit about your idea or project and let's talk about how I can help.",
     emailLabel: 'Email',
-    phoneLabel: 'Phone',
+    whatsappLabel: 'WhatsApp',
+    whatsappCta: 'Message me on WhatsApp',
+    whatsappMessage: "Hi, Luís! I saw your portfolio and I'd like to talk about a project.",
     fields: {
       name: 'Name',
       email: 'Email',

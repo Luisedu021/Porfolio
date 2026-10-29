@@ -8,7 +8,11 @@ type ContactInfoProps = {
 /** Figma: Contact Info — ícone em bloco azul-claro + rótulo e valor. */
 export function ContactInfo({ icon, label, value, href }: ContactInfoProps) {
   return (
-    <a href={href} className="group flex items-center gap-4">
+    <a
+      href={href}
+      {...(href.startsWith('http') && { target: '_blank', rel: 'noopener noreferrer' })}
+      className="group flex items-center gap-4"
+    >
       <span className="flex size-11 shrink-0 items-center justify-center rounded-md bg-brand-subtle">
         <img src={icon} alt="" className="size-5 dark:invert dark:hue-rotate-180" />
       </span>

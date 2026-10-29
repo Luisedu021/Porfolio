@@ -168,7 +168,6 @@ export const en: Dictionary = {
     body: "Tell me a bit about your idea or project and let's talk about how I can help.",
     emailLabel: 'Email',
     whatsappLabel: 'WhatsApp',
-    whatsappCta: 'Message me on WhatsApp',
     whatsappMessage: "Hi, Luís! I saw your portfolio and I'd like to talk about a project.",
     fields: {
       name: 'Name',

@@ -98,7 +98,6 @@ export type Dictionary = {
     body: string
     emailLabel: string
     whatsappLabel: string
-    whatsappCta: string
     whatsappMessage: string
     fields: { name: string; email: string; phone: string; location: string; project: string; message: string }
     submit: string

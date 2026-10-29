@@ -169,7 +169,6 @@ export const pt: Dictionary = {
     body: 'Conte um pouco sobre a sua ideia ou projeto e vamos conversar sobre como posso ajudar.',
     emailLabel: 'Email',
     whatsappLabel: 'WhatsApp',
-    whatsappCta: 'Chamar no WhatsApp',
     whatsappMessage: 'Olá, Luís! Vi seu portfólio e quero conversar sobre um projeto.',
     fields: {
       name: 'Nome',

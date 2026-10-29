@@ -1,6 +1,6 @@
 import { motion } from 'motion/react'
-import photo from '../../assets/luis-photo.png'
-import { socials } from '../../data/content'
+import photo from '../../assets/luis-photo.webp'
+import { socialLinks } from '../../data/content'
 import { useI18n } from '../../i18n/context'
 import { EASE_OUT, inView, pop, staggered } from '../../lib/motion'
 import { Reveal } from '../ui/Reveal'
@@ -26,12 +26,7 @@ export function About() {
             transition={{ delay: 0.3, duration: 1.1, ease: EASE_OUT }}
             className="absolute top-[13.41%] left-[25.36%] h-[99.82%] w-[49.28%] overflow-hidden"
           >
-            <img
-              src={photo}
-              alt={t.hero.photoAlt}
-              loading="lazy"
-              className="absolute top-[-82.31%] left-[-146.15%] h-[226.76%] w-[366.3%] max-w-none"
-            />
+            <img src={photo} alt={t.hero.photoAlt} loading="lazy" decoding="async" className="absolute inset-0 size-full" />
           </motion.div>
         </motion.div>
 
@@ -43,7 +38,7 @@ export function About() {
             <p className="type-body-lg text-body">{t.about.body}</p>
           </Reveal>
           <motion.ul {...inView} variants={staggered(0.1, 0.3)} className="flex items-center gap-6 pt-2">
-            {[socials.linkedin, socials.instagram, socials.github].map((social) => (
+            {socialLinks(t.contact.whatsappMessage).map((social) => (
               <motion.li key={social.label} variants={pop}>
                 <a
                   href={social.href}

@@ -450,9 +450,18 @@ function startAnchorGrid(THREE: Three, canvas: HTMLCanvasElement, host: HTMLElem
   let visible = true
   const io = new IntersectionObserver(([entry]) => (visible = entry.isIntersecting))
   io.observe(host)
-  const ro = new ResizeObserver(resize)
+  // Cena parada não é redesenhada; tamanho ou tema novos pedem um quadro.
+  let dirty = true
+  let wasIdle = false
+  const ro = new ResizeObserver(() => {
+    resize()
+    dirty = true
+  })
   ro.observe(host)
-  const themeObserver = new MutationObserver(readColors)
+  const themeObserver = new MutationObserver(() => {
+    readColors()
+    dirty = true
+  })
   themeObserver.observe(document.documentElement, { attributes: true, attributeFilter: ['class'] })
 
   readColors()
@@ -480,6 +489,18 @@ function startAnchorGrid(THREE: Three, canvas: HTMLCanvasElement, host: HTMLElem
     gridUniforms.uMouse.value.copy(smooth)
     const strength = gridUniforms.uStrength.value
     gridUniforms.uStrength.value = strength + ((target.active ? 1 : 0) - strength) * Math.min(1, dt * 6)
+
+    // Sem cursor, sem demonstração, sem âncoras e com a intro pronta: nada muda na tela.
+    const idle =
+      gridUniforms.uIntro.value >= 1.3 &&
+      !target.active &&
+      ghostStart === null &&
+      anchors.length === 0 &&
+      gridUniforms.uStrength.value < 0.002
+    // Desenha ainda o primeiro quadro parado, para limpar o último rastro.
+    if (idle && wasIdle && !dirty) return
+    wasIdle = idle
+    dirty = false
 
     updatePath()
     renderer.render(scene, camera)

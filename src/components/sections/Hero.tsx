@@ -10,7 +10,7 @@ import {
 import { useRef, type PointerEvent } from 'react'
 import bottomFade from '../../assets/hero-bottom-fade.svg'
 import heroGlow from '../../assets/hero-glow-v2.svg'
-import photo from '../../assets/luis-photo.png'
+import photo from '../../assets/luis-photo.webp'
 import figmaIcon from '../../assets/tech-figma.png'
 import { useI18n } from '../../i18n/context'
 import { cn } from '../../lib/cn'
@@ -86,20 +86,16 @@ function Portrait({ className, alt, pointerX, pointerY, scrollY }: PortraitProps
         </motion.div>
       </motion.div>
 
-      {/* Entrada: a foto sobe de trás da borda da seção, saindo do desfoque */}
+      {/* Entrada: a foto sobe de trás da borda da seção (sem desfoque: blur animado numa imagem grande trava) */}
       <motion.div
         className="absolute inset-x-0 top-0 h-[122.68%]"
-        initial={{ opacity: 0, y: '18%', filter: 'blur(14px)' }}
-        animate={{ opacity: 1, y: 0, filter: 'blur(0px)' }}
+        initial={{ opacity: 0, y: '18%' }}
+        animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.25, duration: 1.3, ease: EASE_OUT }}
       >
-        <motion.div className="absolute inset-0 overflow-hidden" style={{ x: photoX, y: photoY }}>
-          <img
-            src={photo}
-            alt={alt}
-            fetchPriority="high"
-            className="absolute top-[-82.31%] left-[-146.15%] h-[226.76%] w-[366.3%] max-w-none"
-          />
+        <motion.div className="absolute inset-0 overflow-hidden will-change-transform" style={{ x: photoX, y: photoY }}>
+          {/* A foto já vem recortada no trecho exibido (luis-photo.webp), então ocupa a caixa inteira. */}
+          <img src={photo} alt={alt} fetchPriority="high" decoding="async" className="absolute inset-0 size-full" />
         </motion.div>
       </motion.div>
 

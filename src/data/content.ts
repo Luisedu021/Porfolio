@@ -8,6 +8,8 @@ import iconInstagramBrand from '../assets/icon-instagram-brand.svg'
 import iconInstagram from '../assets/icon-instagram.svg'
 import iconLinkedinBrand from '../assets/icon-linkedin-brand.svg'
 import iconLinkedin from '../assets/icon-linkedin.svg'
+import iconWhatsappBrand from '../assets/icon-whatsapp-brand.svg'
+import iconWhatsapp from '../assets/icon-whatsapp-social.svg'
 import cop15Desktop from '../assets/projects/cop15-desktop.jpg'
 import cop15Mobile from '../assets/projects/cop15-mobile.jpg'
 import cop15Preview from '../assets/projects/cop15-preview.jpg'
@@ -179,4 +181,16 @@ export const socials = {
   linkedin: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisedulopes/', icon: iconLinkedin, iconBrand: iconLinkedinBrand },
   instagram: { label: 'Instagram', href: 'https://www.instagram.com/luis_edulopes/', icon: iconInstagram, iconBrand: iconInstagramBrand },
   github: { label: 'GitHub', href: 'https://github.com/Luisedu021', icon: iconGithub, iconBrand: iconGithubBrand },
+  /** O link usa a mensagem inicial no idioma do site: veja socialLinks(). */
+  whatsapp: { label: 'WhatsApp', href: '', icon: iconWhatsapp, iconBrand: iconWhatsappBrand },
+}
+
+/** Redes na ordem dos ícones, com o WhatsApp já trazendo a mensagem inicial. */
+export function socialLinks(whatsappMessage: string) {
+  return [
+    socials.linkedin,
+    socials.instagram,
+    socials.github,
+    { ...socials.whatsapp, href: contact.whatsappHref(whatsappMessage) },
+  ]
 }

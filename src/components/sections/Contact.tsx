@@ -2,9 +2,8 @@ import { motion } from 'motion/react'
 import { type ComponentProps, type FormEvent, useState } from 'react'
 import iconMail from '../../assets/icon-mail.svg'
 import iconSend from '../../assets/icon-send.svg'
-import iconWhatsappWhite from '../../assets/icon-whatsapp-white.svg'
 import iconWhatsapp from '../../assets/icon-whatsapp.svg'
-import { contact, socials } from '../../data/content'
+import { contact, socialLinks } from '../../data/content'
 import { useI18n } from '../../i18n/context'
 import { API_URL, apiPost } from '../../lib/api'
 import { cn } from '../../lib/cn'
@@ -110,13 +109,8 @@ export function Contact() {
                 />
               </li>
             </motion.ul>
-            <motion.div variants={fadeUp}>
-              <Button href={contact.whatsappHref(t.contact.whatsappMessage)} icon={iconWhatsappWhite}>
-                {t.contact.whatsappCta}
-              </Button>
-            </motion.div>
             <motion.ul variants={fadeUp} className="flex items-center gap-4">
-              {[socials.instagram, socials.linkedin, socials.github].map((social) => (
+              {socialLinks(t.contact.whatsappMessage).map((social) => (
                 <li key={social.label}>
                   <a
                     href={social.href}

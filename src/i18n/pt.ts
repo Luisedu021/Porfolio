@@ -12,7 +12,6 @@ export const pt: Dictionary = {
     inicio: 'Home',
     sobre: 'Sobre',
     servicos: 'Serviços',
-    experiencia: 'Resumo',
     educacao: 'Educação',
     projetos: 'Projetos',
     contato: 'Contato',

@@ -12,7 +12,6 @@ export const en: Dictionary = {
     inicio: 'Home',
     sobre: 'About',
     servicos: 'Services',
-    experiencia: 'Resume',
     educacao: 'Education',
     projetos: 'Projects',
     contato: 'Contact',

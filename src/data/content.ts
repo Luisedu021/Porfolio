@@ -33,7 +33,8 @@ import type { DeviceScreens } from '../components/ui/DeviceMockups'
 import type { Language } from '../i18n/types'
 
 /** Ids das seções, na ordem do menu. Os rótulos vêm de `t.nav`. */
-export const sectionIds = ['inicio', 'sobre', 'servicos', 'experiencia', 'educacao', 'projetos', 'contato'] as const
+// Mesma ordem da página. A Experiência fica fora do menu (menos itens); ao passar por ela, "Sobre" segue ativo.
+export const sectionIds = ['inicio', 'servicos', 'sobre', 'educacao', 'projetos', 'contato'] as const
 export type SectionId = (typeof sectionIds)[number]
 
 /** Graduação. Curso, instituição e textos vêm de `t.education`; o ano atual do curso é calculado. */

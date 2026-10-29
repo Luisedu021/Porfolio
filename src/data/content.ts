@@ -175,9 +175,8 @@ export const contact = {
   whatsappHref: (message: string) => `https://wa.me/5518991597894?text=${encodeURIComponent(message)}`,
 }
 
-// TODO: troque `href` pelos seus perfis reais.
 export const socials = {
-  linkedin: { label: 'LinkedIn', href: '#', icon: iconLinkedin, iconBrand: iconLinkedinBrand },
-  instagram: { label: 'Instagram', href: '#', icon: iconInstagram, iconBrand: iconInstagramBrand },
-  github: { label: 'GitHub', href: '#', icon: iconGithub, iconBrand: iconGithubBrand },
+  linkedin: { label: 'LinkedIn', href: 'https://www.linkedin.com/in/luisedulopes/', icon: iconLinkedin, iconBrand: iconLinkedinBrand },
+  instagram: { label: 'Instagram', href: 'https://www.instagram.com/luis_edulopes/', icon: iconInstagram, iconBrand: iconInstagramBrand },
+  github: { label: 'GitHub', href: 'https://github.com/Luisedu021', icon: iconGithub, iconBrand: iconGithubBrand },
 }

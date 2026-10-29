@@ -120,6 +120,8 @@ export function Contact() {
                 <li key={social.label}>
                   <a
                     href={social.href}
+                    target="_blank"
+                    rel="noopener noreferrer"
                     aria-label={social.label}
                     className="block transition-transform duration-300 hover:-translate-y-1 hover:scale-110"
                   >

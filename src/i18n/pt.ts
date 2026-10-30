@@ -4,7 +4,7 @@ const serviceTags = ['UI/UX', 'Figma', 'Prototipagem']
 
 export const pt: Dictionary = {
   meta: {
-    description: 'Luís Eduardo — UI/UX Designer, Product Designer e Desenvolvedor Fullstack.',
+    description: 'Luís Eduardo — Product Designer e desenvolvedor: automações e produtos construídos com IA.',
   },
   nav: {
     label: 'Principal',
@@ -23,7 +23,7 @@ export const pt: Dictionary = {
   },
   hero: {
     badgeName: 'Luís Eduardo',
-    badgeRole: 'UI/UX Designer & Fullstack Developer',
+    badgeRole: 'Product Designer · Automações e IA',
     titleStart: 'Onde o design encontra o ',
     titleHighlight: 'código limpo.',
     support: 'Ajudo startups e empresas a criar produtos web e mobile, do protótipo ao deploy.',
@@ -42,7 +42,7 @@ export const pt: Dictionary = {
       {
         number: '01',
         title: 'IA & automatizações',
-        tags: serviceTags,
+        tags: ['IA', 'Automação', 'APIs'],
         description: 'Focado em automatizar processos, melhorar produtividade e gerar valor e mais conversão!',
         details: [
           'Agentes e chatbots com IA para atendimento, vendas e suporte',
@@ -100,7 +100,7 @@ export const pt: Dictionary = {
   },
   about: {
     title: 'Sobre',
-    body: 'Sou o Luís Eduardo, designer e desenvolvedor, estudante de Ciência da Computação na UFMS. Trabalho na ponte entre design e código: entendo o problema e quem vai usar, desenho a interface no Figma e levo até o produto no ar. Hoje atuo como UI/UX Designer e dev na Ouronova e na Mega Jr., onde já passei por design, desenvolvimento e área comercial. Gosto de desafios novos e de entregar trabalho bem feito, do primeiro rascunho ao deploy.',
+    body: 'Sou o Luís Eduardo, designer de produto e estudante de Ciência da Computação na UFMS. Uso IA para construir soluções de ponta a ponta: entendo o problema e quem vai usar, desenho no Figma e levo até o produto no ar. Liderei o time do Iron Capi na entrega de 90+ telas e um protótipo funcional em 7 dias, automatizei processos internos e montei pipelines de dados. Hoje atuo como UI/UX Designer e dev na Ouronova e na Mega Jr., onde passei por design, desenvolvimento e pela diretoria comercial.',
   },
   experience: {
     title: 'Minha experiência profissional',
@@ -112,22 +112,22 @@ export const pt: Dictionary = {
       megaDesigner: {
         role: 'UI/UX Designer',
         description:
-          'Atuei como UI/UX Designer em diversos projetos tais como: COP-15, landing page de Acunpunpulturista e empresa Jr. (Multipla',
+          'Atuei como UI/UX Designer em projetos como a landing page da COP-15 (apresentada no Integra UFMS 2025), a landing page de um acupunturista e o site da empresa júnior Múltipla.',
       },
       megaDirector: {
         role: 'Diretor comercial',
         description:
-          'Lidei com a gestão de processos comerciais, conversas com leads, realização de contratos e reuniões para conversão de leads.',
+          'Na minha gestão, dobramos o volume de leads e faturamos 2,7x a meta, cuidando das conversas com leads, reuniões de conversão e contratos.',
       },
       megaDev: {
         role: 'Dev. Web',
         description:
-          'Atuei como desenvolvedor Web em landing pages de diferentes nichos, tais como empresarais e da área da saúde.',
+          'Atuei como desenvolvedor Web em landing pages de diferentes nichos, como empresariais e da área da saúde.',
       },
       ouronova: {
         role: 'UI/UX Designer e Dev.',
         description:
-          'Atuei na elaboração E Redesign de fluxos do software wellnova para empresas do setor petrolífero, tais como: Petrobrás, Shell e empresas europeias.',
+          'Redesenhei fluxos de um módulo do Wellnova, software de empresas de óleo e gás no Brasil e na Europa, em que um erro obrigava o usuário a refazer todo o processo. Também desenvolvo com React, TypeScript, Python/Django, PostgreSQL e MySQL.',
       },
     },
   },

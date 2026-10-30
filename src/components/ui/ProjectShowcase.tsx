@@ -38,10 +38,19 @@ export function ProjectShowcase({ project, number, layout, delay = 0 }: ProjectS
       animate="show"
       className={cn(
         'relative grid gap-10 text-white',
-        isSide ? 'h-full grid-cols-[minmax(0,300px)_minmax(0,1fr)] items-center p-10 xl:gap-14 xl:p-14' : 'px-5 pt-2 pb-8',
+        isSide
+          ? 'h-full grid-cols-[minmax(0,300px)_minmax(0,1fr)] grid-rows-[minmax(0,1fr)] items-center p-10 xl:gap-14 xl:p-14'
+          : 'px-5 pt-2 pb-8',
       )}
     >
-      <div className={cn('relative flex flex-col', isSide ? 'gap-4' : 'gap-5')}>
+      {/* Na coluna aberta a altura é fixa: o texto longo rola aqui dentro e os mockups ficam parados.
+          O pb-8 cobre os 32px do fadeUp, senão a barra pisca enquanto os itens sobem. */}
+      <div
+        className={cn(
+          'relative flex flex-col',
+          isSide ? 'scrollbar-panel -mr-3 max-h-full gap-4 overflow-y-auto overscroll-contain pt-1 pr-3 pb-8' : 'gap-5',
+        )}
+      >
         <motion.div variants={fadeUp} className="flex items-center gap-3">
           {isSide && <span className="font-display text-lg font-light text-white/60">{number}</span>}
           <span className="rounded-full border border-white/20 px-3 py-1 type-tag text-white/80">

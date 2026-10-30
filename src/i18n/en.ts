@@ -4,7 +4,7 @@ const serviceTags = ['UI/UX', 'Figma', 'Prototyping']
 
 export const en: Dictionary = {
   meta: {
-    description: 'Luís Eduardo — UI/UX Designer, Product Designer and Fullstack Developer.',
+    description: 'Luís Eduardo — Product Designer and developer: automations and products built with AI.',
   },
   nav: {
     label: 'Main',
@@ -23,7 +23,7 @@ export const en: Dictionary = {
   },
   hero: {
     badgeName: 'Luís Eduardo',
-    badgeRole: 'UI/UX Designer & Fullstack Developer',
+    badgeRole: 'Product Designer · Automation & AI',
     titleStart: 'Where great design meets ',
     titleHighlight: 'clean code.',
     support: 'I help startups and businesses build web and mobile products, from prototype to deploy.',
@@ -41,7 +41,7 @@ export const en: Dictionary = {
       {
         number: '01',
         title: 'AI & automation',
-        tags: serviceTags,
+        tags: ['AI', 'Automation', 'APIs'],
         description: 'Focused on automating processes, improving productivity and generating value and more conversion!',
         details: [
           'AI agents and chatbots for support, sales and customer service',
@@ -99,7 +99,7 @@ export const en: Dictionary = {
   },
   about: {
     title: 'About',
-    body: "I'm Luís Eduardo, a designer and developer studying Computer Science at UFMS. I work where design meets code: I understand the problem and the people who will use it, design the interface in Figma and take it all the way to a live product. Today I work as a UI/UX Designer and developer at Ouronova and at Mega Jr., where I've also done development and sales. I enjoy new challenges and delivering solid work, from the first sketch to deploy.",
+    body: "I'm Luís Eduardo, a product designer studying Computer Science at UFMS. I use AI to build solutions end to end: I understand the problem and the people who will use it, design in Figma and take it all the way to a live product. I led the Iron Capi team in shipping 90+ screens and a working prototype in 7 days, automated internal processes and built data pipelines. Today I work as a UI/UX Designer and developer at Ouronova and at Mega Jr., where I've worked in design, development and as commercial director.",
   },
   experience: {
     title: 'My professional experience',
@@ -111,12 +111,12 @@ export const en: Dictionary = {
       megaDesigner: {
         role: 'UI/UX Designer',
         description:
-          'Worked as a UI/UX Designer on several projects, such as: COP-15, a landing page for an acupuncturist and a junior enterprise (Multipla',
+          'Worked as a UI/UX Designer on projects such as the COP-15 landing page (presented at Integra UFMS 2025), a landing page for an acupuncturist and the website of the junior enterprise Múltipla.',
       },
       megaDirector: {
         role: 'Commercial Director',
         description:
-          'Handled the management of sales processes, conversations with leads, closing contracts and meetings to convert leads.',
+          'Under my leadership, we doubled lead volume and billed 2.7x the target, handling lead conversations, conversion meetings and contracts.',
       },
       megaDev: {
         role: 'Web Dev.',
@@ -126,7 +126,7 @@ export const en: Dictionary = {
       ouronova: {
         role: 'UI/UX Designer & Dev.',
         description:
-          'Worked on the design and redesign of flows for the Wellnova software for companies in the oil sector, such as Petrobras, Shell and European companies.',
+          'Redesigned flows in a module of Wellnova, software used by oil and gas companies in Brazil and Europe, where a single mistake forced users to redo the whole process. I also build with React, TypeScript, Python/Django, PostgreSQL and MySQL.',
       },
     },
   },

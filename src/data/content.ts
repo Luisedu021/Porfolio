@@ -126,10 +126,22 @@ export const projects: Project[] = [
     screens: { tablet: ironCapiTablet, mobile: ironCapiMobile },
     preview: ironCapiPreview,
     href: 'https://luisedu021.github.io/Iron-Capi/',
-    text: text(
-      'App de treino Iron Capi: treino do dia, sequência semanal, ranking com amigos e calendário de treinos, além do painel do time.',
-      'Iron Capi workout app: workout of the day, weekly streak, friends ranking and a training calendar, plus the team dashboard.',
-    ),
+    text: {
+      pt: {
+        summary:
+          'App de treino gamificado para universitários, selecionado pelo Sebrae para o Integra UFMS. Fui tech lead de um time de 4 pessoas e montei um processo de design acelerado com IA.',
+        challenge: 'Sair da ideia para um protótipo funcional a tempo do Integra, com um time pequeno e multidisciplinar.',
+        result:
+          'Com IA em cada etapa do design (referências, análise, geração de telas e revisão), entregamos 90+ telas e o protótipo no ar em 7 dias. Na pesquisa, ~75% de 60+ respostas deixaram contato como interessados.',
+      },
+      en: {
+        summary:
+          'Gamified workout app for university students, selected by Sebrae for Integra UFMS. I was tech lead of a 4-person team and set up an AI-accelerated design process.',
+        challenge: 'Go from idea to a working prototype in time for Integra, with a small, multidisciplinary team.',
+        result:
+          'With AI at every design step (references, analysis, screen generation and review), we shipped 90+ screens and a live prototype in 7 days. In our survey, ~75% of 60+ respondents left their contact as interested.',
+      },
+    },
   },
   {
     key: 'cop15',
@@ -151,10 +163,18 @@ export const projects: Project[] = [
     // Mesmas imagens do hotsite: as telas internas do sistema não são públicas.
     screens: { desktop: wellnovaDesktop, tablet: wellnovaTablet, mobile: wellnovaMobile },
     preview: wellnovaPreview,
-    text: text(
-      'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
-      "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
-    ),
+    text: {
+      pt: {
+        summary: 'Plataforma de IA da Wellnova para integridade de poços de óleo e gás. Atuei no redesign de um módulo específico do sistema.',
+        challenge: 'Fluxos incompletos em que um erro de preenchimento obrigava o usuário a refazer todo o processo.',
+        result: 'Fluxos redesenhados e interface visual aprimorada no módulo.',
+      },
+      en: {
+        summary: "Wellnova's AI platform for oil and gas well integrity. I worked on the redesign of a specific module of the system.",
+        challenge: 'Incomplete flows where a single input mistake forced users to redo the whole process.',
+        result: 'Redesigned flows and an improved visual interface in the module.',
+      },
+    },
   },
   {
     key: 'megaAtas',
@@ -164,10 +184,22 @@ export const projects: Project[] = [
     screens: { desktop: megaAtasDesktop, tablet: megaAtasTablet, mobile: megaAtasMobile },
     preview: megaAtasPreview,
     href: 'https://mega-jr-atas.vercel.app/',
-    text: text(
-      'Gerador de atas de reunião da Mega Jr.: recebe os detalhes, a data e os pontos importantes e gera o resumo. Meu primeiro projeto com JavaScript e APIs.',
-      "Mega Jr.'s meeting minutes generator: it takes the details, the date and the key points and writes the summary. My first project with JavaScript and APIs.",
-    ),
+    text: {
+      pt: {
+        summary:
+          'Gerador de atas de reunião da Mega Jr.: recebe os detalhes, a data e os pontos importantes e gera um PDF padronizado. Minha primeira automação, de 2026.',
+        challenge: 'Redigir atas à mão tomava tempo e cada pessoa escrevia de um jeito.',
+        result:
+          'Economiza ~10 min por ata; com ~15 atas por mês, são ~30 h por ano devolvidas ao time, com registros no mesmo padrão.',
+      },
+      en: {
+        summary:
+          "Mega Jr.'s meeting minutes generator: it takes the details, the date and the key points and outputs a standardized PDF. My first automation, from 2026.",
+        challenge: 'Writing minutes by hand took time and everyone wrote them differently.',
+        result:
+          'It saves ~10 min per meeting; at ~15 meetings a month, that is ~30 hours a year back to the team, with every record in the same format.',
+      },
+    },
   },
 ]
 

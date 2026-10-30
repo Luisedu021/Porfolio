@@ -105,6 +105,26 @@
   backdrop-filter: blur(14px) saturate(140%);
 }
 
+/*
+ * Barra de rolagem do projeto aberto (fundo bg-inverse): fina, na cor das tags.
+ * scrollbar-color vale no Chrome/Firefox; o ::-webkit-scrollbar cobre o Safari.
+ */
+@utility scrollbar-panel {
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--color-tag-foreground) 40%, transparent) transparent;
+
+  &::-webkit-scrollbar {
+    width: 6px;
+  }
+  &::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  &::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-tag-foreground) 40%, transparent);
+  }
+}
+
 /* Frase de impacto do hero */
 @utility type-hero {
   font-family: var(--font-display);
@@ -260,6 +280,22 @@
 
   html {
     scroll-padding-top: 6rem;
+    /* Barra de rolagem da página: polegar na cor da marca sobre o fundo da página (troca com o tema). */
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-brand) var(--color-page);
+  }
+
+  /* Safari: mesmo visual da barra da página, com o polegar arredondado. */
+  ::-webkit-scrollbar {
+    width: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--color-page);
+  }
+  ::-webkit-scrollbar-thumb {
+    border: 3px solid var(--color-page);
+    border-radius: 999px;
+    background: var(--color-brand);
   }
 
   /* Troca de tema: a animação em círculo é feita no ThemeToggle; aqui desligamos o fade padrão. */

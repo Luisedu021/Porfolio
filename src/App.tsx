@@ -8,13 +8,11 @@ import { Header } from './components/sections/Header'
 import { Hero } from './components/sections/Hero'
 import { Projects } from './components/sections/Projects'
 import { Services } from './components/sections/Services'
-import { ScrollProgress } from './components/ui/ScrollProgress'
 
 export default function App() {
   return (
     // reducedMotion="user": quem ativou "reduzir movimento" no sistema vê só fades, sem deslocamentos.
     <MotionConfig reducedMotion="user">
-      <ScrollProgress />
       <Header />
       <main>
         <Hero />

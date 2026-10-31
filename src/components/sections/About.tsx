@@ -47,7 +47,9 @@ export function About() {
                   aria-label={social.label}
                   className="block transition-transform duration-300 hover:-translate-y-1 hover:scale-110"
                 >
-                  <img src={social.icon} alt="" className="size-7 dark:invert" />
+                  <img src={social.icon} alt="" className="size-7 dark:hidden" />
+                  {/* No escuro, mesmo padrão da área de contato: ícone azul clareado por invert + hue-rotate. */}
+                  <img src={social.iconBrand} alt="" className="hidden size-7 dark:block dark:invert dark:hue-rotate-180" />
                 </a>
               </motion.li>
             ))}

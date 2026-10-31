@@ -107,7 +107,7 @@ export const en: Dictionary = {
     title: 'My professional experience',
     periods: {
       megaJr: 'August 2025 – present',
-      ouronova: 'August 2025 – present',
+      ouronova: 'May 2026 – present',
     },
     items: {
       megaDesigner: {

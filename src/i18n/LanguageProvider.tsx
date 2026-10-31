@@ -7,15 +7,15 @@ import type { Language } from './types'
 const dictionaries = { pt, en }
 const STORAGE_KEY = 'lang'
 
-/** Escolha salva > idioma do navegador (pt-* vira português, o resto inglês). */
+/** Escolha salva > português (o padrão do site, qualquer que seja o idioma do navegador). */
 function getInitialLanguage(): Language {
   try {
     const saved = localStorage.getItem(STORAGE_KEY)
     if (saved === 'pt' || saved === 'en') return saved
   } catch {
-    // localStorage indisponível (modo privado etc.): segue para o navegador.
+    // localStorage indisponível (modo privado etc.): fica no padrão.
   }
-  return navigator.language.toLowerCase().startsWith('pt') ? 'pt' : 'en'
+  return 'pt'
 }
 
 export function LanguageProvider({ children }: { children: ReactNode }) {

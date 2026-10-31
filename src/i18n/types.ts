@@ -27,6 +27,8 @@ export type Dictionary = {
     language: string
     toDark: string
     toLight: string
+    openMenu: string
+    closeMenu: string
   }
   hero: {
     /** Selo de vidro acima da frase */

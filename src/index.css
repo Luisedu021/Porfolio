@@ -238,6 +238,7 @@
 @layer base {
   /* Cores do degradê do topo (bg-hero) */
   :root {
+    color-scheme: light;
     --hero-soft: #f1f5f9;
     --hero-mid: #c4ddfc;
     --hero-glow: #96c4ff;

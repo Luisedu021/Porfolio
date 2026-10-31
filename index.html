@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- O site tem tema claro e escuro próprios: impede o navegador de "escurecer" o tema claro sozinho. -->
+    <meta name="color-scheme" content="light dark" />
     <meta
       name="description"
       content="Luís Eduardo — UI/UX Designer, Product Designer e Desenvolvedor Fullstack."
@@ -15,7 +17,7 @@
         var theme = localStorage.getItem('theme')
         var dark = theme ? theme === 'dark' : matchMedia('(prefers-color-scheme: dark)').matches
         document.documentElement.classList.toggle('dark', dark)
-        var lang = localStorage.getItem('lang') || (navigator.language.toLowerCase().indexOf('pt') === 0 ? 'pt' : 'en')
+        var lang = localStorage.getItem('lang') || 'pt'
         document.documentElement.lang = lang === 'pt' ? 'pt-BR' : 'en'
       } catch (e) {}
     </script>

@@ -20,6 +20,8 @@ export const pt: Dictionary = {
     language: 'Idioma',
     toDark: 'Ativar modo escuro',
     toLight: 'Ativar modo claro',
+    openMenu: 'Abrir menu',
+    closeMenu: 'Fechar menu',
   },
   hero: {
     badgeName: 'Luís Eduardo',

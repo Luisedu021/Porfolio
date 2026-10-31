@@ -17,7 +17,8 @@ export function FormField({ label, name, type = 'text', required, multiline, aut
   const id = `field-${name}`
   const placeholder = required ? `${label}*` : label
   const fieldClass = cn(
-    'w-full resize-none border-b border-line bg-transparent pb-3 type-body-md text-ink outline-none transition-colors',
+    // Celular/tablet: 16px, senão o Safari do iPhone dá zoom sozinho ao tocar no campo.
+    'w-full resize-none border-b border-line bg-transparent pb-3 type-body-md max-md:text-base text-ink outline-none transition-colors',
     'placeholder:text-body focus:border-b-2 focus:border-brand focus:pb-[11px] focus:placeholder:text-brand',
   )
 

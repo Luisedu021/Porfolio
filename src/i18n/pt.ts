@@ -102,13 +102,13 @@ export const pt: Dictionary = {
   },
   about: {
     title: 'Sobre',
-    body: 'Sou o Luís Eduardo, designer de produto e estudante de Ciência da Computação na UFMS. Uso IA para construir soluções de ponta a ponta: entendo o problema e quem vai usar, desenho no Figma e levo até o produto no ar. Liderei o time do Iron Capi na entrega de 90+ telas e um protótipo funcional em 7 dias, automatizei processos internos e montei pipelines de dados. Hoje atuo como UI/UX Designer e dev na Ouronova e na Mega Jr., onde passei por design, desenvolvimento e pela diretoria comercial.',
+    body: 'Sou o Luís Eduardo, designer de produto e estudante de Ciência da Computação na UFMS. Uso IA para levar soluções do problema ao produto no ar, do Figma ao código. Liderei o time do Iron Capi na entrega de 90+ telas e um protótipo funcional em 7 dias, além de automatizar processos e montar pipelines de dados. Hoje sou UI/UX Designer e dev na Ouronova e na Mega Jr., onde também passei pela diretoria comercial.',
   },
   experience: {
     title: 'Minha experiência profissional',
     periods: {
       megaJr: 'Agosto 2025 – até o momento',
-      ouronova: 'Agosto 2025 – até o momento',
+      ouronova: 'Maio 2026 – até o momento',
     },
     items: {
       megaDesigner: {

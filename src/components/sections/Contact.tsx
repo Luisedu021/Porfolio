@@ -120,7 +120,7 @@ export function Contact() {
                     className="block transition-transform duration-300 hover:-translate-y-1 hover:scale-110"
                   >
                     {/* Ícones azuis: no escuro, invert + hue-rotate clareia mantendo o tom de azul. */}
-                    <img src={social.iconBrand} alt="" className="size-6 dark:invert dark:hue-rotate-180" />
+                    <img src={social.icon} alt="" className="size-6 dark:invert dark:hue-rotate-180" />
                   </a>
                 </li>
               ))}

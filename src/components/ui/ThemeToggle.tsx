@@ -69,7 +69,7 @@ export function ThemeToggle() {
       onClick={handleClick}
       aria-label={label}
       title={label}
-      className="flex size-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+      className="flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
     >
       <AnimatePresence mode="wait" initial={false}>
         <motion.span

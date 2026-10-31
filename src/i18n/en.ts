@@ -101,7 +101,7 @@ export const en: Dictionary = {
   },
   about: {
     title: 'About',
-    body: "I'm Luís Eduardo, a product designer studying Computer Science at UFMS. I use AI to build solutions end to end: I understand the problem and the people who will use it, design in Figma and take it all the way to a live product. I led the Iron Capi team in shipping 90+ screens and a working prototype in 7 days, automated internal processes and built data pipelines. Today I work as a UI/UX Designer and developer at Ouronova and at Mega Jr., where I've worked in design, development and as commercial director.",
+    body: "I'm Luís Eduardo, a product designer studying Computer Science at UFMS. I use AI to take solutions from the problem to a live product, from Figma to code. I led the Iron Capi team in shipping 90+ screens and a working prototype in 7 days, and I've automated processes and built data pipelines. Today I'm a UI/UX Designer and developer at Ouronova and Mega Jr., where I've also served as commercial director.",
   },
   experience: {
     title: 'My professional experience',

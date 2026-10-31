@@ -143,10 +143,11 @@
   text-transform: uppercase;
 }
 
+/* Começa em 26px (360px de tela) para "AUTOMATIZAÇÕES" e "DESENVOLVIMENTO" caberem numa linha. */
 @utility type-service {
   font-family: var(--font-display);
   font-weight: 400;
-  font-size: clamp(32px, 22.06px + 2.652vw, 56px);
+  font-size: clamp(26px, 14.26px + 3.261vw, 56px);
   line-height: 1;
   letter-spacing: -0.05em;
   text-transform: uppercase;

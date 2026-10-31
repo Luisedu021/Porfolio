@@ -217,8 +217,8 @@ export function Projects() {
   const isDesktop = useMediaQuery('(min-width: 1024px)')
   const projects = useProjects()
   const groups = useMemo(() => groupByCategory(projects), [projects])
-  // No celular a primeira categoria já começa aberta, para as telas aparecerem sem precisar tocar.
-  const [openIndex, setOpenIndex] = useState<number | null>(() => (isDesktop ? null : 0))
+  // Tudo começa fechado: no celular, os prints e molduras só carregam quando a pessoa abre uma categoria.
+  const [openIndex, setOpenIndex] = useState<number | null>(null)
   const toggle = (index: number) => setOpenIndex((current) => (current === index ? null : index))
 
   // Esc fecha a categoria aberta (escuta na janela: o foco pode estar fora da lista).

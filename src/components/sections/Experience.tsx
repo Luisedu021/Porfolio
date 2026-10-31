@@ -19,7 +19,6 @@ export function Experience() {
               key={group.key}
               company={group.company}
               period={t.experience.periods[group.key]}
-              tone={group.tone}
               roles={group.roles.map((role) => t.experience.items[role])}
               isLast={index === experiences.length - 1}
             />

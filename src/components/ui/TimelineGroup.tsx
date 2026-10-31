@@ -1,13 +1,11 @@
 import { motion, type Variants } from 'motion/react'
-import markerBrand from '../../assets/timeline-marker-brand.svg'
-import markerDark from '../../assets/timeline-marker-dark.svg'
+import marker from '../../assets/timeline-marker-brand.svg'
 import type { ExperienceText } from '../../i18n/types'
 import { fadeLeft, fadeRight, inView, pop, staggered } from '../../lib/motion'
 
 type TimelineGroupProps = {
   company: string
   period: string
-  tone: 'brand' | 'dark'
   /** Cargos nesta empresa, na ordem em que aparecem */
   roles: readonly ExperienceText[]
   /** A última empresa não desenha a linha até o próximo marcador. */
@@ -24,7 +22,7 @@ const drawDown: Variants = {
  * Uma empresa na linha do tempo. No desktop: empresa e período | marcador | cargos empilhados.
  * No mobile o marcador vai para a esquerda e o texto empilha.
  */
-export function TimelineGroup({ company, period, tone, roles, isLast }: TimelineGroupProps) {
+export function TimelineGroup({ company, period, roles, isLast }: TimelineGroupProps) {
   return (
     <motion.li
       {...inView}
@@ -40,7 +38,7 @@ export function TimelineGroup({ company, period, tone, roles, isLast }: Timeline
       <div className="relative col-start-1 row-span-2 row-start-1 md:col-start-2 md:row-span-1">
         <motion.img
           variants={pop}
-          src={tone === 'brand' ? markerBrand : markerDark}
+          src={marker}
           alt=""
           className="relative z-10 size-[42px]"
         />

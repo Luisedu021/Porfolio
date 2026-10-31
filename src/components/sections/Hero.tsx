@@ -162,7 +162,7 @@ export function Hero() {
         lg: texto à esquerda e foto à direita.
         xl (1280px): composição exata do Figma (Hero 104:1305, sem a barra do menu).
       */}
-      <Container className="relative grid gap-10 pt-12 lg:grid-cols-[1fr_400px] lg:gap-x-12 lg:pt-16 xl:block xl:h-[787px] xl:pt-0">
+      <Container className="relative grid gap-8 pt-8 lg:grid-cols-[1fr_400px] lg:gap-x-12 lg:pt-16 xl:block xl:h-[787px] xl:pt-0">
         <motion.div
           className="relative z-10 flex flex-col items-start gap-6 lg:self-center xl:absolute xl:top-[150px] xl:left-[78px]"
           style={{ x: headlineX, y: textScrollY }}
@@ -253,7 +253,8 @@ export function Hero() {
           pointerX={smoothX}
           pointerY={smoothY}
           scrollY={portraitScrollY}
-          className="mx-auto max-w-[400px] lg:col-start-2 lg:row-start-1 lg:mx-0 lg:max-w-none lg:self-end xl:absolute xl:top-[42px] xl:left-[694px] xl:w-[460px]"
+          // Celular: foto menor, para aparecer mais dela na primeira tela.
+          className="mx-auto max-w-[280px] sm:max-w-[400px] lg:col-start-2 lg:row-start-1 lg:mx-0 lg:max-w-none lg:self-end xl:absolute xl:top-[42px] xl:left-[694px] xl:w-[460px]"
         />
       </Container>
     </section>

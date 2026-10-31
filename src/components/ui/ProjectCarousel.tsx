@@ -26,7 +26,7 @@ const slide = {
 }
 
 const navButton =
-  'flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white'
+  'flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white'
 
 /**
  * Projetos de uma categoria, um por vez. Setas (e ← → no teclado, ou arrastar no celular)
@@ -71,22 +71,29 @@ export function ProjectCarousel({ projects, number, layout, delay = 0, onClose }
         className="pointer-events-none absolute inset-0 bg-[radial-gradient(circle_at_72%_62%,color-mix(in_srgb,var(--color-brand)_45%,transparent),transparent_58%)]"
       />
 
-      <AnimatePresence mode="wait" initial={false} custom={direction}>
-        <motion.div
-          key={project.key}
-          custom={direction}
-          variants={slide}
-          initial="enter"
-          animate="center"
-          exit="exit"
-          onPanEnd={hasNav && !isSide ? handlePanEnd : undefined}
-          style={{ touchAction: 'pan-y' }}
-          className={cn(isSide && 'h-full')}
-          aria-live="polite"
-        >
-          <ProjectShowcase project={project} number={number} layout={layout} delay={delay} />
-        </motion.div>
-      </AnimatePresence>
+      {/* Celular: ao abrir, o projeto "espia" para o lado uma vez, mostrando que dá para arrastar. */}
+      <motion.div
+        animate={hasNav && !isSide ? { x: [0, -18, 0] } : undefined}
+        transition={{ delay: delay + 1, duration: 0.9, ease: 'easeInOut' }}
+        className={cn(isSide && 'h-full')}
+      >
+        <AnimatePresence mode="wait" initial={false} custom={direction}>
+          <motion.div
+            key={project.key}
+            custom={direction}
+            variants={slide}
+            initial="enter"
+            animate="center"
+            exit="exit"
+            onPanEnd={hasNav && !isSide ? handlePanEnd : undefined}
+            style={{ touchAction: 'pan-y' }}
+            className={cn(isSide && 'h-full')}
+            aria-live="polite"
+          >
+            <ProjectShowcase project={project} number={number} layout={layout} delay={delay} />
+          </motion.div>
+        </AnimatePresence>
+      </motion.div>
 
       {hasNav && (
         <div
@@ -98,9 +105,28 @@ export function ProjectCarousel({ projects, number, layout, delay = 0, onClose }
           <button type="button" onClick={() => go(-1)} aria-label={t.projects.previous} className={navButton}>
             <img src={arrowRight} alt="" className="size-3.5 rotate-180" />
           </button>
-          <span className="min-w-12 text-center font-display text-sm text-white/70 tabular-nums">
-            {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
-          </span>
+          {isSide ? (
+            <span className="min-w-12 text-center font-display text-sm text-white/70 tabular-nums">
+              {String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}
+            </span>
+          ) : (
+            // Celular: pontinhos (o atual alongado) deixam claro que há mais projetos para os lados.
+            <span className="flex items-center gap-2">
+              <span className="sr-only">
+                {index + 1} / {total}
+              </span>
+              {projects.map((item, i) => (
+                <span
+                  key={item.key}
+                  aria-hidden="true"
+                  className={cn(
+                    'h-1.5 rounded-full transition-all duration-300',
+                    i === index ? 'w-5 bg-white' : 'w-1.5 bg-white/30',
+                  )}
+                />
+              ))}
+            </span>
+          )}
           <button type="button" onClick={() => go(1)} aria-label={t.projects.next} className={navButton}>
             <img src={arrowRight} alt="" className="size-3.5" />
           </button>
@@ -113,7 +139,7 @@ export function ProjectCarousel({ projects, number, layout, delay = 0, onClose }
           onClick={onClose}
           aria-label={t.projects.close}
           ref={closeRef}
-          className="absolute top-5 right-5 flex size-10 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
+          className="absolute top-5 right-5 flex size-11 items-center justify-center rounded-full bg-white/10 text-white transition-colors hover:bg-white/20 focus-visible:outline-2 focus-visible:outline-white"
         >
           <svg viewBox="0 0 16 16" className="size-4" aria-hidden="true">
             <path d="M3 3l10 10M13 3L3 13" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />

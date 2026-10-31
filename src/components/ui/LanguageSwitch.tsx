@@ -23,7 +23,8 @@ export function LanguageSwitch() {
             aria-label={option.name}
             aria-pressed={isActive}
             onClick={() => setLang(option.value)}
-            className="relative rounded-full px-3 py-1.5 type-tag text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
+            // before: estende a área de toque para 44px de altura sem mudar o desenho da pílula.
+            className="relative rounded-full px-3 py-1.5 type-tag text-white before:absolute before:inset-x-0 before:-inset-y-2 focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-white"
           >
             {isActive && (
               <motion.span

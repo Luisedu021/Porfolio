@@ -149,7 +149,7 @@ export function Header() {
           aria-controls="menu-mobile"
           aria-label={menuOpen ? t.controls.closeMenu : t.controls.openMenu}
           className={cn(
-            'ml-auto flex size-10 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 lg:hidden',
+            'ml-auto flex size-11 items-center justify-center rounded-full text-white transition-colors hover:bg-white/10 lg:hidden',
             menuOpen && 'bg-white/10',
             focusRing,
           )}
